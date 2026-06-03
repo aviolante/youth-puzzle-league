@@ -1,0 +1,157 @@
+{
+  "id": "2026-week-23-strands",
+  "title": "Restoration Strands",
+  "type": "strands",
+  "opensAt": "2026-06-01T04:00:00Z",
+  "closesAt": "2026-06-08T03:59:59Z",
+  "theme": "Ruth & 1 Samuel — people, places, and a promise",
+  "clue": "Boaz redeemed Ruth's family line. The spangram names what every redeemer points to.",
+  "instructions": "Find every theme word by linking neighboring letters. One word is the spangram and stretches across the whole board.",
+  "cols": 6,
+  "rows": 8,
+  "grid": [
+    "H",
+    "N",
+    "O",
+    "E",
+    "D",
+    "O",
+    "N",
+    "A",
+    "N",
+    "B",
+    "B",
+    "A",
+    "A",
+    "O",
+    "A",
+    "A",
+    "H",
+    "Z",
+    "M",
+    "N",
+    "H",
+    "M",
+    "S",
+    "T",
+    "I",
+    "E",
+    "A",
+    "E",
+    "U",
+    "U",
+    "G",
+    "L",
+    "L",
+    "M",
+    "E",
+    "R",
+    "D",
+    "E",
+    "E",
+    "H",
+    "I",
+    "R",
+    "E",
+    "R",
+    "S",
+    "L",
+    "O",
+    "H"
+  ],
+  "spangram": {
+    "word": "REDEEMER",
+    "cells": [
+      43,
+      42,
+      36,
+      37,
+      38,
+      33,
+      34,
+      41
+    ]
+  },
+  "themeWords": [
+    {
+      "word": "HANNAH",
+      "cells": [
+        0,
+        7,
+        1,
+        8,
+        14,
+        20
+      ]
+    },
+    {
+      "word": "SAMUEL",
+      "cells": [
+        22,
+        15,
+        21,
+        28,
+        27,
+        32
+      ]
+    },
+    {
+      "word": "SHILOH",
+      "cells": [
+        44,
+        39,
+        40,
+        45,
+        46,
+        47
+      ]
+    },
+    {
+      "word": "NAOMI",
+      "cells": [
+        6,
+        12,
+        13,
+        18,
+        24
+      ]
+    },
+    {
+      "word": "GLEAN",
+      "cells": [
+        30,
+        31,
+        25,
+        26,
+        19
+      ]
+    },
+    {
+      "word": "RUTH",
+      "cells": [
+        35,
+        29,
+        23,
+        16
+      ]
+    },
+    {
+      "word": "BOAZ",
+      "cells": [
+        10,
+        5,
+        11,
+        17
+      ]
+    },
+    {
+      "word": "OBED",
+      "cells": [
+        2,
+        9,
+        3,
+        4
+      ]
+    }
+  ]
+}

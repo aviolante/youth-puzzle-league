@@ -1,0 +1,30 @@
+{
+  "id": "2026-week-22",
+  "title": "Restoration Connections",
+  "type": "connections",
+  "opensAt": "2026-05-25T04:00:00Z",
+  "closesAt": "2026-06-01T03:59:59Z",
+  "instructions": "Find four groups of four tiles. Each group is connected to scripture, temples, or missionary teaching.",
+  "categories": [
+    {
+      "id": "book-of-mormon-books",
+      "title": "Books in the Book of Mormon",
+      "items": ["Mosiah", "Alma", "Ether", "Moroni"]
+    },
+    {
+      "id": "standard-works",
+      "title": "Standard Works",
+      "items": ["Bible", "Book of Mormon", "Doctrine and Covenants", "Pearl of Great Price"]
+    },
+    {
+      "id": "book-of-mormon-prophets",
+      "title": "Book of Mormon Prophets",
+      "items": ["Nephi", "Jacob", "Enos", "Mormon"]
+    },
+    {
+      "id": "utah-temples",
+      "title": "Utah Temple Names",
+      "items": ["Salt Lake", "Logan", "Manti", "Provo City Center"]
+    }
+  ]
+}

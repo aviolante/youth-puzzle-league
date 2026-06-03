@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Logo Preview</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      .preview-page {
+        display: grid;
+        gap: 22px;
+      }
+
+      .logo-options {
+        display: grid;
+        gap: 18px;
+      }
+
+      .logo-option {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.92);
+        box-shadow: var(--shadow);
+        padding: 18px;
+      }
+
+      .logo-option img {
+        display: block;
+        width: min(100%, 760px);
+        height: auto;
+      }
+
+      .logo-option h2 {
+        margin-bottom: 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app-shell preview-page">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Preview</p>
+          <h1>Logo Options</h1>
+        </div>
+        <nav class="view-tabs" aria-label="Preview navigation">
+          <a class="tab-button is-active" href="logo-preview.html">Logos</a>
+          <a class="tab-button" href="index.html">App</a>
+        </nav>
+      </header>
+
+      <main class="logo-options">
+        <section class="logo-option">
+          <h2>Original YPL</h2>
+          <img src="assets/ypl-logo.svg" alt="Original YPL logo" />
+        </section>
+
+        <section class="logo-option">
+          <h2>Stronger YPL</h2>
+          <img src="assets/ypl-logo-v2.svg" alt="Stronger YPL logo" />
+        </section>
+
+        <section class="logo-option">
+          <h2>White Oak Ward / WOW</h2>
+          <img src="assets/wow-logo.svg" alt="White Oak Ward WOW logo" />
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

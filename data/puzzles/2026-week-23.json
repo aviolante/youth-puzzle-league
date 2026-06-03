@@ -1,0 +1,30 @@
+{
+  "id": "2026-week-23",
+  "title": "Ruth and Samuel Connections",
+  "type": "connections",
+  "opensAt": "2026-06-01T04:00:00Z",
+  "closesAt": "2026-06-08T03:59:59Z",
+  "instructions": "Find four groups of four. Everything comes from this week's reading: Ruth and 1 Samuel 1–7.",
+  "categories": [
+    {
+      "id": "ruth-people",
+      "title": "People in the Book of Ruth",
+      "items": ["Ruth", "Naomi", "Boaz", "Orpah"]
+    },
+    {
+      "id": "samuel-people",
+      "title": "People in 1 Samuel",
+      "items": ["Hannah", "Elkanah", "Eli", "Samuel"]
+    },
+    {
+      "id": "places",
+      "title": "Towns and Lands",
+      "items": ["Bethlehem", "Moab", "Shiloh", "Ramah"]
+    },
+    {
+      "id": "symbols",
+      "title": "Symbols and Key Words",
+      "items": ["Gleaning", "Redeemer", "Ark", "Ebenezer"]
+    }
+  ]
+}

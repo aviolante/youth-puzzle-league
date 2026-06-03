@@ -1,0 +1,27 @@
+{
+  "id": "2026-week-23",
+  "dateLabel": "June 1–7",
+  "reference": "Ruth; 1 Samuel 1–7",
+  "lessonTitle": "My Heart Rejoiceth in the Lord",
+  "summary": "Two stories of quiet faith at the end of the era of the judges. In Ruth, a Moabite widow stays loyal to her mother-in-law Naomi, gleans in the fields of Boaz, and is redeemed when Boaz marries her — their son Obed becomes the grandfather of King David. In 1 Samuel 1–7, Hannah prays for a son and gives him to the Lord; the boy Samuel is called as a prophet; the ark of the covenant is captured by the Philistines and later returned; and Samuel calls Israel to repent, leading to deliverance at Mizpah, where he sets up the stone Ebenezer — 'Hitherto hath the Lord helped us.'",
+  "people": [
+    { "name": "Naomi", "note": "Israelite woman from Bethlehem; wife of Elimelech and mother-in-law to Ruth and Orpah. Returns home after losing her husband and sons." },
+    { "name": "Ruth", "note": "Moabite widow of Naomi's son Mahlon. Refuses to leave Naomi ('thy people shall be my people') and later marries Boaz." },
+    { "name": "Orpah", "note": "Ruth's sister-in-law, also a Moabite widow. Chooses to stay in Moab when Naomi returns to Bethlehem." },
+    { "name": "Boaz", "note": "Wealthy, kind landowner in Bethlehem and a relative of Elimelech. Acts as the kinsman-redeemer and marries Ruth." },
+    { "name": "Obed", "note": "Son of Boaz and Ruth — grandfather of King David, linking this family to the future royal line (and to Christ)." },
+    { "name": "Hannah", "note": "Wife of Elkanah. Long childless and grieved; vows that if God gives her a son she will lend him to the Lord. Mother of Samuel." },
+    { "name": "Elkanah", "note": "Hannah's husband, from Ramah, who loves her and worships yearly at Shiloh." },
+    { "name": "Eli", "note": "The aging high priest at Shiloh who raises the boy Samuel, but whose own sons are corrupt." },
+    { "name": "Samuel", "note": "Hannah's son, raised at the tabernacle. Called by the Lord as a boy and becomes Israel's prophet and last judge." }
+  ],
+  "locations": [
+    { "name": "Bethlehem", "note": "Town in Judah; Naomi's home and the setting of Ruth's gleaning. Later the city of David." },
+    { "name": "Moab", "note": "Land east of the Dead Sea where Naomi's family fled the famine; Ruth's homeland." },
+    { "name": "Shiloh", "note": "Where the tabernacle and ark of the covenant rested; Hannah prayed here and Samuel served under Eli." },
+    { "name": "Ramah", "note": "Home of Elkanah and Hannah, and later Samuel's home base as he judged Israel." },
+    { "name": "Mizpah", "note": "Where Samuel gathered Israel to repent and pray, leading to victory over the Philistines." },
+    { "name": "Ebenezer", "note": "The 'stone of help' Samuel set up after the victory: 'Hitherto hath the Lord helped us' (1 Samuel 7:12)." }
+  ],
+  "background": "These stories sit at the close of the period of the Judges, when Israel had no king and lived as loosely joined tribes that drifted in and out of faithfulness. Famine often pushed families to seek food in neighboring lands like Moab. Israelite law included the role of a kinsman-redeemer (a near relative who could buy back family land and carry on a dead man's line), which is exactly what Boaz does for Ruth and Naomi. Meanwhile the Philistines, a powerful people on the coast, pressed in on Israel and even captured the ark. Samuel becomes the hinge of this whole era — the prophet who bridges the time of judges and the coming of Israel's kings."
+}

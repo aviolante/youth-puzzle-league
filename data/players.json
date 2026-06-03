@@ -1,0 +1,19 @@
+{
+  "players": [
+    {
+      "id": "player1",
+      "displayName": "Player One",
+      "active": true
+    },
+    {
+      "id": "player2",
+      "displayName": "Player Two",
+      "active": true
+    },
+    {
+      "id": "player3",
+      "displayName": "Player Three",
+      "active": true
+    }
+  ]
+}

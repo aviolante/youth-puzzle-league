@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Youth Puzzle League</title>
+    <link rel="stylesheet" href="https://foundry.churchofjesuschrist.org/Foundry/v1/McKay/css" />
+    <link rel="stylesheet" href="https://foundry.churchofjesuschrist.org/Foundry/v1/Zoram/css" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div class="brand">
+          <img class="brand-logo" src="assets/ypl-logo.svg" alt="Youth Puzzle League logo" />
+          <div>
+            <p class="eyebrow">Youth Puzzle League</p>
+            <h1 id="app-title">Weekly Church Puzzle</h1>
+          </div>
+        </div>
+        <nav class="view-tabs" aria-label="Primary">
+          <button class="tab-button is-active" type="button" data-view-target="connections">Connections</button>
+          <button class="tab-button" type="button" data-view-target="strands">Strands</button>
+          <button class="tab-button" type="button" data-view-target="reading">This Week</button>
+          <button class="tab-button" type="button" data-view-target="leaderboard">Leaderboard</button>
+        </nav>
+      </header>
+
+      <main>
+        <!-- Connections -->
+        <section class="view is-active" id="connections-view" aria-labelledby="c-game-heading">
+          <div class="game-layout">
+            <aside class="player-panel" aria-label="Connections player setup and status">
+              <div>
+                <p class="eyebrow">This week</p>
+                <h2 id="c-game-heading">Loading puzzle</h2>
+                <p class="support-text" id="c-puzzle-summary">Preparing the board.</p>
+              </div>
+
+              <form class="player-form" id="c-player-form">
+                <label for="c-player-select">Player</label>
+                <select id="c-player-select" name="player" required>
+                  <option value="">Choose your name</option>
+                </select>
+
+                <label for="c-pin-input">PIN</label>
+                <input id="c-pin-input" name="pin" inputmode="numeric" autocomplete="off" placeholder="4 digits" required />
+
+                <button class="primary-button" id="c-start-button" type="submit">Start Connections</button>
+              </form>
+
+              <div class="status-block" id="c-submission-status" role="status">
+                Select your name and start when you are ready.
+              </div>
+
+              <dl class="metrics-list">
+                <div><dt>Timer</dt><dd id="c-timer-value">0:00</dd></div>
+                <div><dt>Mistakes</dt><dd id="c-mistake-value">0</dd></div>
+                <div><dt>Live score</dt><dd id="c-score-value">1000</dd></div>
+              </dl>
+            </aside>
+
+            <section class="puzzle-surface" aria-label="Connections board">
+              <div class="puzzle-toolbar">
+                <div>
+                  <p class="eyebrow" id="c-puzzle-id-label">Puzzle</p>
+                  <h2 id="c-puzzle-title">Connections</h2>
+                  <p class="reading-ref" id="c-reading-ref"></p>
+                </div>
+                <div class="deadline" id="c-deadline-label">Deadline pending</div>
+              </div>
+
+              <div class="solved-groups" id="c-solved-groups" aria-live="polite"></div>
+              <div class="tile-grid" id="c-tile-grid" aria-label="Unsolved tiles"></div>
+
+              <div class="board-actions">
+                <button class="secondary-button" id="c-check-button" type="button" disabled>Check Group</button>
+                <button class="icon-button" id="c-shuffle-button" type="button" title="Shuffle tiles" disabled>Shuffle</button>
+                <button class="icon-button" id="c-clear-button" type="button" title="Clear selection" disabled>Clear</button>
+              </div>
+            </section>
+          </div>
+        </section>
+
+        <!-- Strands -->
+        <section class="view" id="strands-view" aria-labelledby="s-game-heading">
+          <div class="game-layout">
+            <aside class="player-panel" aria-label="Strands player setup and status">
+              <div>
+                <p class="eyebrow">This week</p>
+                <h2 id="s-game-heading">Loading puzzle</h2>
+                <p class="support-text" id="s-puzzle-summary">Preparing the board.</p>
+              </div>
+
+              <form class="player-form" id="s-player-form">
+                <label for="s-player-select">Player</label>
+                <select id="s-player-select" name="player" required>
+                  <option value="">Choose your name</option>
+                </select>
+
+                <label for="s-pin-input">PIN</label>
+                <input id="s-pin-input" name="pin" inputmode="numeric" autocomplete="off" placeholder="4 digits" required />
+
+                <button class="primary-button" id="s-start-button" type="submit">Start Strands</button>
+              </form>
+
+              <div class="status-block" id="s-submission-status" role="status">
+                Select your name and start when you are ready.
+              </div>
+
+              <dl class="metrics-list metrics-list--four">
+                <div><dt>Timer</dt><dd id="s-timer-value">0:00</dd></div>
+                <div><dt>Mistakes</dt><dd id="s-mistake-value">0</dd></div>
+                <div><dt>Hints</dt><dd id="s-hint-value">0</dd></div>
+                <div><dt>Live score</dt><dd id="s-score-value">1000</dd></div>
+              </dl>
+            </aside>
+
+            <section class="puzzle-surface" aria-label="Strands board">
+              <div class="puzzle-toolbar">
+                <div>
+                  <p class="eyebrow" id="s-puzzle-id-label">Puzzle</p>
+                  <h2 id="s-puzzle-title">Strands</h2>
+                  <p class="reading-ref" id="s-reading-ref"></p>
+                </div>
+                <div class="deadline" id="s-deadline-label">Deadline pending</div>
+              </div>
+
+              <div class="strands-theme" id="s-theme">Theme</div>
+              <p class="strands-progress" id="s-progress" aria-live="polite">0 of 0 found</p>
+
+              <div class="strands-board" id="s-board">
+                <svg class="strands-links" id="s-links" aria-hidden="true"></svg>
+                <div class="strands-grid" id="s-grid" aria-label="Letter board"></div>
+              </div>
+
+              <div class="board-actions">
+                <button class="secondary-button" id="s-check-button" type="button" disabled>Check Word</button>
+                <button class="icon-button" id="s-hint-button" type="button" title="Reveal a letter (−50)" disabled>Hint</button>
+                <button class="icon-button" id="s-clear-button" type="button" title="Clear path" disabled>Clear</button>
+              </div>
+
+              <div class="strands-found" id="s-found" aria-live="polite"></div>
+            </section>
+          </div>
+        </section>
+
+        <!-- This Week (reading insights, unlocked after both puzzles) -->
+        <section class="view" id="reading-view" aria-labelledby="reading-week-heading">
+          <div class="reading-panel" id="reading-panel"></div>
+        </section>
+
+        <!-- Leaderboard -->
+        <section class="view" id="leaderboard-view" aria-labelledby="leaderboard-heading">
+          <div class="leaderboard-layout">
+            <section class="leaderboard-panel">
+              <div class="section-heading">
+                <div>
+                  <p class="eyebrow">Finalized results</p>
+                  <h2 id="leaderboard-heading">Weekly Leaderboard</h2>
+                </div>
+                <span id="weekly-finalized-label">Not finalized</span>
+              </div>
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Rank</th>
+                      <th>Player</th>
+                      <th>Time</th>
+                      <th>Mistakes</th>
+                      <th>Score</th>
+                      <th>Points</th>
+                    </tr>
+                  </thead>
+                  <tbody id="weekly-leaderboard-body">
+                    <tr><td colspan="6">No weekly results yet.</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+
+            <section class="leaderboard-panel">
+              <div class="section-heading">
+                <div>
+                  <p class="eyebrow">Season</p>
+                  <h2>Overall Standings</h2>
+                </div>
+                <span id="season-count-label">0 weeks</span>
+              </div>
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Rank</th>
+                      <th>Player</th>
+                      <th>Total</th>
+                      <th>Weeks</th>
+                      <th>Wins</th>
+                    </tr>
+                  </thead>
+                  <tbody id="season-leaderboard-body">
+                    <tr><td colspan="5">No season results yet.</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="config.js"></script>
+    <script type="module" src="app.js"></script>
+  </body>
+</html>

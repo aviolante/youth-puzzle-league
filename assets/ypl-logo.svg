@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 260" role="img" aria-labelledby="title desc">
+  <title id="title">Youth Puzzle League YPL logo</title>
+  <desc id="desc">A green, gold, and blue YPL puzzle league emblem with a compact wordmark.</desc>
+  <defs>
+    <linearGradient id="badgeGradient" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#254634"/>
+      <stop offset="0.58" stop-color="#315d7f"/>
+      <stop offset="1" stop-color="#1f2f3a"/>
+    </linearGradient>
+    <linearGradient id="goldGradient" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f1d17a"/>
+      <stop offset="1" stop-color="#c69a38"/>
+    </linearGradient>
+    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#16130f" flood-opacity="0.2"/>
+    </filter>
+  </defs>
+
+  <g filter="url(#softShadow)">
+    <rect x="28" y="24" width="704" height="212" rx="34" fill="#fbfaf7"/>
+    <rect x="42" y="38" width="676" height="184" rx="26" fill="#ffffff" stroke="#ddd7cc" stroke-width="3"/>
+  </g>
+
+  <g transform="translate(66 48)">
+    <rect x="0" y="0" width="164" height="164" rx="30" fill="url(#badgeGradient)"/>
+    <!-- Two interlocking pieces sharing a wavy seam: gold on top, white below. -->
+    <path d="M24 24 H140 V94 H100 A18 18 0 0 1 64 94 H24 Z" fill="url(#goldGradient)" opacity="0.95"/>
+    <path d="M24 94 H64 A18 18 0 0 0 100 94 H140 V150 H24 Z" fill="#ffffff" opacity="0.95"/>
+    <text x="82" y="80" fill="#ffffff" font-family="Inter, Arial, sans-serif" font-size="58" font-weight="900" text-anchor="middle" letter-spacing="0">Y</text>
+    <text x="53" y="135" fill="#254634" font-family="Inter, Arial, sans-serif" font-size="36" font-weight="900" text-anchor="middle" letter-spacing="0">P</text>
+    <text x="111" y="135" fill="#254634" font-family="Inter, Arial, sans-serif" font-size="36" font-weight="900" text-anchor="middle" letter-spacing="0">L</text>
+  </g>
+
+  <g transform="translate(260 72)">
+    <text x="0" y="66" fill="#232323" font-family="Inter, Arial, sans-serif" font-size="64" font-weight="900" letter-spacing="0">YPL</text>
+    <text x="0" y="110" fill="#254634" font-family="Inter, Arial, sans-serif" font-size="30" font-weight="850" letter-spacing="0">Youth Puzzle League</text>
+    <rect x="1" y="130" width="58" height="10" rx="5" fill="#c9a34d"/>
+    <rect x="68" y="130" width="58" height="10" rx="5" fill="#315d7f"/>
+    <rect x="135" y="130" width="58" height="10" rx="5" fill="#3d6f50"/>
+  </g>
+
+  <g transform="translate(628 65)" opacity="0.95">
+    <rect x="0" y="0" width="28" height="28" rx="6" fill="#e8f1dd" stroke="#c9dda9" stroke-width="2"/>
+    <rect x="34" y="0" width="28" height="28" rx="6" fill="#fff4cf" stroke="#e8d38d" stroke-width="2"/>
+    <rect x="0" y="34" width="28" height="28" rx="6" fill="#e5eff6" stroke="#bfd2e2" stroke-width="2"/>
+    <rect x="34" y="34" width="28" height="28" rx="6" fill="#f4e6e3" stroke="#e5c6c0" stroke-width="2"/>
+  </g>
+</svg>

@@ -1,0 +1,25 @@
+# Secrets / env
+.env
+.env.example
+
+# Local source material, processed content, and working docs (never published)
+content/
+docs/
+
+# Publish only the game scripts; all other local tooling stays local
+scripts/*
+!scripts/lib
+!scripts/google-apps-script
+!scripts/finalize-week.mjs
+!scripts/build-cfm-assignments.mjs
+!scripts/build-week-reading.mjs
+!scripts/build-strands-puzzle.mjs
+!scripts/validate-connections.mjs
+scripts/lib/*
+!scripts/lib/env.mjs
+!scripts/lib/jsonl.mjs
+
+.DS_Store
+node_modules/
+__pycache__/
+*.pyc

@@ -175,6 +175,7 @@ h2 {
 .signin-bar select,
 .signin-bar input {
   min-height: 42px;
+  min-width: 0;
   border: 1px solid var(--line);
   border-radius: 6px;
   background: var(--surface-strong);
@@ -182,8 +183,12 @@ h2 {
   padding: 8px 12px;
 }
 
+.signin-bar select {
+  flex: 1 1 150px;
+}
+
 .signin-bar input {
-  width: 100px;
+  flex: 1 1 90px;
 }
 
 .signin-bar .primary-button {
@@ -648,7 +653,6 @@ h2 {
   border-radius: 4px;
   padding: 1px 6px;
   margin-left: 4px;
-  white-space: nowrap;
 }
 
 /* Scripture links: keep the chip look, just make them tappable */
@@ -726,10 +730,13 @@ h2 {
   bottom: 16px;
   transform: translateX(-50%);
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   align-items: center;
   gap: 10px;
+  max-width: calc(100% - 24px);
   padding: 8px 12px;
-  border-radius: 999px;
+  border-radius: 18px;
   background: rgba(31, 47, 58, 0.96);
   box-shadow: var(--shadow);
   z-index: 50;
@@ -837,10 +844,13 @@ td {
 
   .view-tabs {
     width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .tab-button {
-    flex: 1;
+    min-width: 0;
+    padding: 10px 8px;
   }
 
   .game-layout {

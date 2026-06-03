@@ -1,18 +1,20 @@
-name: Finalize weekly leaderboard
+name: Weekly leaderboard preview
 
-# Runs daily and finalizes any puzzle whose deadline (closesAt) has passed and
-# that has not been finalized yet, then commits the leaderboard JSON. You can
-# also trigger it by hand from the Actions tab (Run workflow).
+# After each week's Saturday-midnight (ET) deadline, this pulls the scores and
+# prints the would-be standings for review — it does NOT change the repo. You
+# review, then publish yourself by running the finalizer locally:
+#   PQ_GOOGLE_SCRIPT_URL=... PQ_ADMIN_KEY=... npm run finalize:week -- --auto
+#   git add data/leaderboards && git commit -m "Publish week" && git push
 on:
   schedule:
-    - cron: "0 13 * * *" # 13:00 UTC daily (after the Sun-night deadline)
+    - cron: "0 13 * * 0" # Sundays 13:00 UTC, after the Sat-night ET deadline
   workflow_dispatch: {}
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
-  finalize:
+  preview:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -21,20 +23,16 @@ jobs:
         with:
           node-version: 20
 
-      - name: Finalize any closed weeks
+      - name: Preview standings (no changes pushed)
         env:
           PQ_GOOGLE_SCRIPT_URL: ${{ secrets.PQ_GOOGLE_SCRIPT_URL }}
           PQ_ADMIN_KEY: ${{ secrets.PQ_ADMIN_KEY }}
-        run: node scripts/finalize-week.mjs --auto
-
-      - name: Commit and push if the leaderboard changed
         run: |
-          if [[ -n "$(git status --porcelain data/leaderboards)" ]]; then
-            git config user.name "github-actions[bot]"
-            git config user.email "github-actions[bot]@users.noreply.github.com"
-            git add data/leaderboards
-            git commit -m "Auto-finalize weekly leaderboard"
-            git push
-          else
-            echo "No leaderboard changes to publish."
-          fi
+          node scripts/finalize-week.mjs --auto --dry-run | tee /tmp/preview.txt
+          {
+            echo "## Weekly leaderboard preview (not published)"
+            echo "Review these, then run \`npm run finalize:week -- --auto\` locally and push to publish."
+            echo '```json'
+            cat /tmp/preview.txt
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"

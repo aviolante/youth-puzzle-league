@@ -20,6 +20,9 @@ import process from "node:process";
 
 const args = parseArgs(process.argv.slice(2));
 const week = args.week || "2026-week-23";
+// Opens Monday 00:00 ET; closes end of Saturday (Sunday 00:00 ET) — the weekly
+// submission deadline. Override with --opensAt / --closesAt if needed.
+const weekDates = weekDatesFor(week);
 
 // This week's defaults (Ruth & 1 Samuel). Override with --spangram / --words.
 const DEFAULTS = {
@@ -65,8 +68,8 @@ const puzzle = {
   id: `${week}-strands`,
   title: args.title || DEFAULTS.title,
   type: "strands",
-  opensAt: args.opensAt || DEFAULTS.opensAt,
-  closesAt: args.closesAt || DEFAULTS.closesAt,
+  opensAt: args.opensAt || weekDates?.opensAt || DEFAULTS.opensAt,
+  closesAt: args.closesAt || weekDates?.closesAt || DEFAULTS.closesAt,
   theme: args.theme || DEFAULTS.theme,
   clue: args.clue || DEFAULTS.clue,
   instructions: "Find every theme word by linking neighboring letters. One word is the spangram and stretches across the whole board.",
@@ -305,6 +308,44 @@ function shuffle(items) {
     [copy[i], copy[j]] = [copy[j], copy[i]];
   }
   return copy;
+}
+
+// Compute opensAt (Mon 00:00 ET) and closesAt (Sun 00:00 ET = end of Saturday)
+// for a "2026-week-NN" id, handling US Eastern DST.
+function weekDatesFor(weekId) {
+  const match = /^(\d{4})-week-(\d{1,2})$/.exec(String(weekId));
+  if (!match) return null;
+  const monday = isoWeekMonday(Number(match[1]), Number(match[2]));
+  const sunday = new Date(monday);
+  sunday.setUTCDate(monday.getUTCDate() + 6);
+  return { opensAt: etMidnightUtc(monday), closesAt: etMidnightUtc(sunday) };
+}
+
+function isoWeekMonday(year, week) {
+  const jan4 = new Date(Date.UTC(year, 0, 4));
+  const day = jan4.getUTCDay() || 7;
+  const monday = new Date(jan4);
+  monday.setUTCDate(jan4.getUTCDate() - day + 1 + (week - 1) * 7);
+  return monday;
+}
+
+// Midnight (00:00) Eastern for the given UTC date, expressed as a UTC instant.
+function etMidnightUtc(date) {
+  const iso = date.toISOString().slice(0, 10);
+  const offset = isEasternDst(date) ? 4 : 5; // EDT = UTC-4, EST = UTC-5
+  return `${iso}T${String(offset).padStart(2, "0")}:00:00Z`;
+}
+
+function isEasternDst(date) {
+  const y = date.getUTCFullYear();
+  const start = Date.UTC(y, 2, nthSunday(y, 2, 2)); // 2nd Sunday of March
+  const end = Date.UTC(y, 10, nthSunday(y, 10, 1)); // 1st Sunday of November
+  return date.getTime() >= start && date.getTime() < end;
+}
+
+function nthSunday(year, monthIndex, n) {
+  const firstDow = new Date(Date.UTC(year, monthIndex, 1)).getUTCDay();
+  return 1 + ((7 - firstDow) % 7) + (n - 1) * 7;
 }
 
 function parseArgs(argv) {

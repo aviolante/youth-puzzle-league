@@ -1,42 +1,74 @@
 #!/usr/bin/env node
 
-import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { mkdir, readdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import process from "node:process";
 
 const args = parseArgs(process.argv.slice(2));
 const rootDir = process.cwd();
-const current = await readJson(path.join(rootDir, "data/current.json"));
-const puzzleId = args.puzzle || args.p || current.puzzleId;
 
-if (!puzzleId) {
-  fail("Missing puzzle id. Use --puzzle 2026-week-22.");
+// --auto finalizes every connections puzzle whose deadline has passed and which
+// has not been finalized yet (for the scheduled GitHub Action). Otherwise a
+// single puzzle is finalized (--puzzle, or the current one).
+const targets = args.auto
+  ? await autoTargets()
+  : [args.puzzle || args.p || (await readJson(path.join(rootDir, "data/current.json"))).puzzleId];
+
+if (!targets.length || !targets[0]) {
+  if (args.auto) {
+    console.log("Auto: no closed puzzles awaiting finalization.");
+    process.exit(0);
+  }
+  fail("Missing puzzle id. Use --puzzle 2026-week-23 (or --auto).");
 }
 
-const submissions = await loadSubmissions();
-const weekly = finalizeWeekly(submissions, puzzleId);
-const seasonPreview = await buildSeasonPreview(weekly);
+let finalized = 0;
+for (const id of targets) {
+  if (await finalizeOne(id)) finalized += 1;
+}
+if (args.auto) console.log(`Auto: finalized ${finalized} puzzle(s).`);
 
-if (args["dry-run"]) {
-  console.log(JSON.stringify({ weekly, season: seasonPreview }, null, 2));
-  process.exit(0);
+// Connections puzzles whose closesAt has passed and that lack a finalized board.
+async function autoTargets() {
+  const now = Date.now();
+  const dir = path.join(rootDir, "data/puzzles");
+  const files = (await readdir(dir)).filter((file) => file.endsWith(".json"));
+  const ids = [];
+  for (const file of files) {
+    const puzzle = await readJson(path.join(dir, file), null);
+    if (!puzzle || puzzle.type !== "connections") continue;
+    if (!puzzle.closesAt || new Date(puzzle.closesAt).getTime() > now) continue;
+    const existing = await readJson(path.join(rootDir, `data/leaderboards/${puzzle.id}.json`), null);
+    if (existing && existing.finalizedAt) continue;
+    ids.push(puzzle.id);
+  }
+  return ids;
 }
 
-await mkdir(path.join(rootDir, "data/leaderboards"), { recursive: true });
-await writeJson(path.join(rootDir, `data/leaderboards/${puzzleId}.json`), weekly);
+async function finalizeOne(puzzleId) {
+  const puzzle = await readJson(path.join(rootDir, `data/puzzles/${puzzleId}.json`), {});
+  const submissions = await loadSubmissions(puzzleId);
+  const weekly = finalizeWeekly(submissions, puzzleId, puzzle.closesAt);
+  const seasonPreview = await buildSeasonPreview(weekly);
 
-const seasonPath = path.join(rootDir, "data/leaderboards/season.json");
-await writeJson(seasonPath, seasonPreview);
+  if (args["dry-run"]) {
+    console.log(JSON.stringify({ weekly, season: seasonPreview }, null, 2));
+    return false;
+  }
 
-console.log(`Finalized ${weekly.standings.length} scores for ${puzzleId}.`);
-console.log(`Wrote data/leaderboards/${puzzleId}.json and data/leaderboards/season.json.`);
+  await mkdir(path.join(rootDir, "data/leaderboards"), { recursive: true });
+  await writeJson(path.join(rootDir, `data/leaderboards/${puzzleId}.json`), weekly);
+  await writeJson(path.join(rootDir, "data/leaderboards/season.json"), seasonPreview);
+  console.log(`Finalized ${weekly.standings.length} scores for ${puzzleId}.`);
+  return true;
+}
 
 async function buildSeasonPreview(weeklyResults) {
   const seasonPath = path.join(rootDir, "data/leaderboards/season.json");
   const season = await readJson(seasonPath, { updatedAt: "", weeks: {}, standings: [] });
   season.updatedAt = new Date().toISOString();
   season.weeks = season.weeks || {};
-  season.weeks[puzzleId] = weeklyResults.standings.map((row) => ({
+  season.weeks[weeklyResults.puzzleId] = weeklyResults.standings.map((row) => ({
     playerId: row.playerId,
     displayName: row.displayName,
     rank: row.rank,
@@ -49,7 +81,7 @@ async function buildSeasonPreview(weeklyResults) {
   return season;
 }
 
-async function loadSubmissions() {
+async function loadSubmissions(puzzleId) {
   if (args.input) {
     const csv = await readFile(path.resolve(rootDir, args.input), "utf8");
     return parseCsv(csv);
@@ -80,8 +112,10 @@ async function loadSubmissions() {
   return payload.submissions || [];
 }
 
-function finalizeWeekly(rows, targetPuzzleId) {
+function finalizeWeekly(rows, targetPuzzleId, closesAt) {
   const officialByPlayer = new Map();
+  const deadline = closesAt ? new Date(closesAt).getTime() : null;
+  const onTime = (row) => !deadline || new Date(row.submittedAt).getTime() <= deadline;
 
   // Admins (e.g. leaders) are excluded from rankings by default. Extra ids can
   // be excluded with --exclude id1,id2 or PQ_EXCLUDE_PLAYER_IDS; --include-admins
@@ -98,7 +132,7 @@ function finalizeWeekly(rows, targetPuzzleId) {
 
   rows
     .map(normalizeSubmission)
-    .filter((row) => row.puzzleId === targetPuzzleId && row.completed && !row.duplicateOf && !isExcluded(row))
+    .filter((row) => row.puzzleId === targetPuzzleId && row.completed && !row.duplicateOf && !isExcluded(row) && onTime(row))
     .sort((a, b) => new Date(a.submittedAt) - new Date(b.submittedAt))
     .forEach((row) => {
       if (!officialByPlayer.has(row.playerId)) {

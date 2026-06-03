@@ -220,6 +220,12 @@ function exportSubmissions_(params) {
     throw new Error("Invalid admin key.");
   }
 
+  // Map of which players are admins, so the finalizer can exclude their scores.
+  var adminIds = {};
+  getRows_(SHEET_NAMES.players).forEach(function (player) {
+    if (String(player.admin).toLowerCase() === "true") adminIds[player.playerId] = true;
+  });
+
   var puzzleId = params.puzzleId || "";
   var submissions = getRows_(SHEET_NAMES.submissions)
     .filter(function (row) {
@@ -239,7 +245,8 @@ function exportSubmissions_(params) {
         hintsUsed: Number(row.hintsUsed || 0),
         rawScore: Number(row.rawScore),
         completed: String(row.completed).toLowerCase() === "true",
-        duplicateOf: row.duplicateOf || ""
+        duplicateOf: row.duplicateOf || "",
+        admin: !!adminIds[row.playerId]
       };
     });
 

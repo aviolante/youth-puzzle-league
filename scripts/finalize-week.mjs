@@ -83,9 +83,22 @@ async function loadSubmissions() {
 function finalizeWeekly(rows, targetPuzzleId) {
   const officialByPlayer = new Map();
 
+  // Admins (e.g. leaders) are excluded from rankings by default. Extra ids can
+  // be excluded with --exclude id1,id2 or PQ_EXCLUDE_PLAYER_IDS; --include-admins
+  // keeps everyone.
+  const includeAdmins = Boolean(args["include-admins"]);
+  const extraExcluded = new Set(
+    String(args.exclude || process.env.PQ_EXCLUDE_PLAYER_IDS || "")
+      .split(",")
+      .map((id) => id.trim().toLowerCase())
+      .filter(Boolean)
+  );
+  const isExcluded = (row) =>
+    extraExcluded.has(row.playerId.toLowerCase()) || (!includeAdmins && row.admin);
+
   rows
     .map(normalizeSubmission)
-    .filter((row) => row.puzzleId === targetPuzzleId && row.completed && !row.duplicateOf)
+    .filter((row) => row.puzzleId === targetPuzzleId && row.completed && !row.duplicateOf && !isExcluded(row))
     .sort((a, b) => new Date(a.submittedAt) - new Date(b.submittedAt))
     .forEach((row) => {
       if (!officialByPlayer.has(row.playerId)) {
@@ -121,7 +134,7 @@ function finalizeWeekly(rows, targetPuzzleId) {
     puzzleId: targetPuzzleId,
     finalizedAt: new Date().toISOString(),
     scoring: {
-      rawScore: "max(0, 1000 - elapsedSeconds * 2 - mistakes * 50 - hintsUsed * 100)",
+      rawScore: "max(0, 1000 - elapsedSeconds * 1 - mistakes * 25 - hintsUsed * 50)",
       weeklyPoints: "1st 100, 2nd 90, 3rd 80, 4th 70, 5th 60, then minus 5 per rank to a floor of 25"
     },
     standings
@@ -187,13 +200,14 @@ function normalizeSubmission(row) {
     hintsUsed: Number(row.hintsUsed || 0),
     rawScore: Number(row.rawScore || 0),
     completed: String(row.completed).toLowerCase() === "true" || row.completed === true,
-    duplicateOf: String(row.duplicateOf || "")
+    duplicateOf: String(row.duplicateOf || ""),
+    admin: String(row.admin).toLowerCase() === "true" || row.admin === true
   };
 }
 
 function calculateScore(elapsedMs, mistakes, hintsUsed = 0) {
   const elapsedSeconds = Math.floor(Number(elapsedMs || 0) / 1000);
-  return Math.max(0, 1000 - elapsedSeconds * 2 - Number(mistakes || 0) * 50 - Number(hintsUsed || 0) * 100);
+  return Math.max(0, 1000 - elapsedSeconds * 1 - Number(mistakes || 0) * 25 - Number(hintsUsed || 0) * 50);
 }
 
 function weeklyPoints(rank) {

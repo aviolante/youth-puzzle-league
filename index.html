@@ -27,6 +27,23 @@
       </header>
 
       <main>
+        <!-- Shared sign-in (once for both games) -->
+        <div class="signin-bar" id="signin-bar">
+          <div class="signin-fields" id="signin-fields">
+            <label class="eyebrow" for="signin-player">Play as</label>
+            <select id="signin-player" aria-label="Player">
+              <option value="">Choose your name</option>
+            </select>
+            <input id="signin-pin" inputmode="numeric" autocomplete="off" placeholder="PIN" aria-label="PIN" />
+            <button class="primary-button" id="signin-button" type="button">Sign in</button>
+          </div>
+          <div class="signin-active" id="signin-active" hidden>
+            Playing as <strong id="signin-name"></strong>
+            <button class="link-button" id="signin-change" type="button">Change</button>
+          </div>
+          <span class="signin-msg" id="signin-msg">Sign in once, then your clock starts on your first move in each game.</span>
+        </div>
+
         <!-- Connections -->
         <section class="view is-active" id="connections-view" aria-labelledby="c-game-heading">
           <div class="game-layout">
@@ -37,25 +54,14 @@
                 <p class="support-text" id="c-puzzle-summary">Preparing the board.</p>
               </div>
 
-              <form class="player-form" id="c-player-form">
-                <label for="c-player-select">Player</label>
-                <select id="c-player-select" name="player" required>
-                  <option value="">Choose your name</option>
-                </select>
-
-                <label for="c-pin-input">PIN</label>
-                <input id="c-pin-input" name="pin" inputmode="numeric" autocomplete="off" placeholder="4 digits" required />
-
-                <button class="primary-button" id="c-start-button" type="submit">Start Connections</button>
-              </form>
-
               <div class="status-block" id="c-submission-status" role="status">
-                Select your name and start when you are ready.
+                Make your first match to start the clock.
               </div>
 
-              <dl class="metrics-list">
+              <dl class="metrics-list metrics-list--four">
                 <div><dt>Timer</dt><dd id="c-timer-value">0:00</dd></div>
                 <div><dt>Mistakes</dt><dd id="c-mistake-value">0</dd></div>
+                <div><dt>Hints</dt><dd id="c-hint-value">0</dd></div>
                 <div><dt>Live score</dt><dd id="c-score-value">1000</dd></div>
               </dl>
             </aside>
@@ -71,10 +77,12 @@
               </div>
 
               <div class="solved-groups" id="c-solved-groups" aria-live="polite"></div>
+              <div class="hint-list" id="c-hint-list" aria-live="polite"></div>
               <div class="tile-grid" id="c-tile-grid" aria-label="Unsolved tiles"></div>
 
               <div class="board-actions">
                 <button class="secondary-button" id="c-check-button" type="button" disabled>Check Group</button>
+                <button class="icon-button" id="c-hint-button" type="button" title="Reveal a group name (−50)" disabled>Hint</button>
                 <button class="icon-button" id="c-shuffle-button" type="button" title="Shuffle tiles" disabled>Shuffle</button>
                 <button class="icon-button" id="c-clear-button" type="button" title="Clear selection" disabled>Clear</button>
               </div>
@@ -92,20 +100,8 @@
                 <p class="support-text" id="s-puzzle-summary">Preparing the board.</p>
               </div>
 
-              <form class="player-form" id="s-player-form">
-                <label for="s-player-select">Player</label>
-                <select id="s-player-select" name="player" required>
-                  <option value="">Choose your name</option>
-                </select>
-
-                <label for="s-pin-input">PIN</label>
-                <input id="s-pin-input" name="pin" inputmode="numeric" autocomplete="off" placeholder="4 digits" required />
-
-                <button class="primary-button" id="s-start-button" type="submit">Start Strands</button>
-              </form>
-
               <div class="status-block" id="s-submission-status" role="status">
-                Select your name and start when you are ready.
+                Trace your first word to start the clock.
               </div>
 
               <dl class="metrics-list metrics-list--four">

@@ -2,8 +2,13 @@ const config = window.PQ_CONFIG || {};
 let connectionsController = null;
 let strandsController = null;
 let weekContext = null;
+let signIn = null; // { player, pin } once the player has signed in
 const gamesPresent = { c: false, s: false };
 const gamesSolved = { c: false, s: false };
+
+function getCreds() {
+  return signIn;
+}
 
 init().catch((error) => {
   console.error(error);
@@ -28,12 +33,12 @@ async function init() {
   document.querySelector("#app-title").textContent = config.groupName || "Youth Puzzle League";
 
   bindTabs(strandsPuzzle);
+  setupSignIn(players);
 
   if (connectionsPuzzle) {
     connectionsController = new GameController({
       prefix: "c",
       puzzle: connectionsPuzzle,
-      players,
       context,
       adapter: new ConnectionsBoard(connectionsPuzzle)
     });
@@ -44,7 +49,6 @@ async function init() {
     strandsController = new GameController({
       prefix: "s",
       puzzle: strandsPuzzle,
-      players,
       context,
       adapter: new StrandsBoard(strandsPuzzle)
     });
@@ -81,10 +85,13 @@ function renderReading() {
   if (!el) return;
   const ctx = weekContext;
 
+  const manualRef = ctx?.manualUrl
+    ? `; <a href="${ctx.manualUrl}" target="_blank" rel="noopener">Come Follow Me</a>`
+    : "";
   const heading = `
     ${ctx?.dateLabel ? `<p class="eyebrow">${escapeHtml(ctx.dateLabel)}</p>` : ""}
     <h2 id="reading-week-heading">${lessonTitleHtml(ctx, "This Week's Reading")}</h2>
-    ${ctx?.reference ? `<p class="reading-ref">${escapeHtml(ctx.reference)}</p>` : ""}`;
+    ${ctx?.reference ? `<p class="reading-ref">${linkifyReadingRef(ctx.reference)}${manualRef}</p>` : ""}`;
 
   if (!ctx) {
     el.innerHTML = `${heading}<p class="support-text">No reading notes for this week yet.</p>`;
@@ -112,6 +119,104 @@ function renderReading() {
   el.innerHTML = `${heading}${renderContextBody(ctx)}`;
 }
 
+// Map scripture book names/abbreviations to Gospel Library collection + slug, so
+// references in the context can deep-link to churchofjesuschrist.org.
+const SCRIPTURE_BOOKS = {
+  // Old Testament
+  genesis: ["ot", "gen"], gen: ["ot", "gen"], exodus: ["ot", "ex"], ex: ["ot", "ex"], exod: ["ot", "ex"],
+  leviticus: ["ot", "lev"], lev: ["ot", "lev"], numbers: ["ot", "num"], num: ["ot", "num"],
+  deuteronomy: ["ot", "deut"], deut: ["ot", "deut"], joshua: ["ot", "josh"], josh: ["ot", "josh"],
+  judges: ["ot", "judg"], judg: ["ot", "judg"], ruth: ["ot", "ruth"],
+  "1 samuel": ["ot", "1-sam"], "1 sam": ["ot", "1-sam"], "2 samuel": ["ot", "2-sam"], "2 sam": ["ot", "2-sam"],
+  "1 kings": ["ot", "1-kgs"], "1 kgs": ["ot", "1-kgs"], "2 kings": ["ot", "2-kgs"], "2 kgs": ["ot", "2-kgs"],
+  "1 chronicles": ["ot", "1-chr"], "1 chr": ["ot", "1-chr"], "2 chronicles": ["ot", "2-chr"], "2 chr": ["ot", "2-chr"],
+  ezra: ["ot", "ezra"], nehemiah: ["ot", "neh"], neh: ["ot", "neh"], esther: ["ot", "esth"], esth: ["ot", "esth"],
+  job: ["ot", "job"], psalms: ["ot", "ps"], psalm: ["ot", "ps"], ps: ["ot", "ps"], proverbs: ["ot", "prov"], prov: ["ot", "prov"],
+  ecclesiastes: ["ot", "eccl"], eccl: ["ot", "eccl"], "song of solomon": ["ot", "song"], song: ["ot", "song"],
+  isaiah: ["ot", "isa"], isa: ["ot", "isa"], jeremiah: ["ot", "jer"], jer: ["ot", "jer"],
+  lamentations: ["ot", "lam"], lam: ["ot", "lam"], ezekiel: ["ot", "ezek"], ezek: ["ot", "ezek"],
+  daniel: ["ot", "dan"], dan: ["ot", "dan"], hosea: ["ot", "hosea"], joel: ["ot", "joel"], amos: ["ot", "amos"],
+  obadiah: ["ot", "obad"], obad: ["ot", "obad"], jonah: ["ot", "jonah"], micah: ["ot", "micah"], nahum: ["ot", "nahum"],
+  habakkuk: ["ot", "hab"], hab: ["ot", "hab"], zephaniah: ["ot", "zeph"], zeph: ["ot", "zeph"],
+  haggai: ["ot", "hag"], hag: ["ot", "hag"], zechariah: ["ot", "zech"], zech: ["ot", "zech"], malachi: ["ot", "mal"], mal: ["ot", "mal"],
+  // New Testament (common)
+  matthew: ["nt", "matt"], matt: ["nt", "matt"], mark: ["nt", "mark"], luke: ["nt", "luke"], john: ["nt", "john"],
+  acts: ["nt", "acts"], romans: ["nt", "rom"], rom: ["nt", "rom"], hebrews: ["nt", "heb"], heb: ["nt", "heb"],
+  james: ["nt", "james"], revelation: ["nt", "rev"], rev: ["nt", "rev"],
+  // Book of Mormon (common)
+  "1 nephi": ["bofm", "1-ne"], "1 ne": ["bofm", "1-ne"], "2 nephi": ["bofm", "2-ne"], "2 ne": ["bofm", "2-ne"],
+  jacob: ["bofm", "jacob"], enos: ["bofm", "enos"], mosiah: ["bofm", "mosiah"], alma: ["bofm", "alma"],
+  helaman: ["bofm", "hel"], hel: ["bofm", "hel"], "3 nephi": ["bofm", "3-ne"], "3 ne": ["bofm", "3-ne"],
+  "4 nephi": ["bofm", "4-ne"], "4 ne": ["bofm", "4-ne"], mormon: ["bofm", "morm"], morm: ["bofm", "morm"],
+  ether: ["bofm", "ether"], moroni: ["bofm", "moro"], moro: ["bofm", "moro"],
+  // Doctrine and Covenants + Pearl of Great Price
+  "d&c": ["dc-testament", "dc"], "doctrine and covenants": ["dc-testament", "dc"], dc: ["dc-testament", "dc"],
+  moses: ["pgp", "moses"], abraham: ["pgp", "abr"], abr: ["pgp", "abr"]
+};
+
+function normalizeBookKey(token) {
+  return token.toLowerCase().replace(/\./g, "").replace(/\s+/g, " ").trim();
+}
+
+function scriptureUrlFromEntry(entry, chapter, verse) {
+  const [collection, slug] = entry;
+  let url = `https://www.churchofjesuschrist.org/study/scriptures/${collection}/${slug}/${chapter}?lang=eng`;
+  if (verse) url += `&id=p${verse}#p${verse}`;
+  return url;
+}
+
+// Turn scripture references inside a string into Gospel Library links. A book
+// name "carries" to the following bare chapter:verse references in the same
+// string, so "1 Samuel 1:3, 2:12-25, 3:2-21" becomes three separate links
+// (chapters 1, 2, and 3). Non-references are left untouched.
+function linkifyScriptures(raw) {
+  const re =
+    /((?:[1-3]\s)?[A-Za-z][A-Za-z.&]*(?:\sof\sSolomon)?)\s(\d+)(?:[–—-]\d+)?(?::(\d+)(?:[–—-]\d+)?)?|(\d+):(\d+)(?:[–—-]\d+)?/g;
+  let out = "";
+  let last = 0;
+  let match;
+  let currentEntry = null;
+  while ((match = re.exec(raw)) !== null) {
+    const full = match[0];
+    out += escapeHtml(raw.slice(last, match.index));
+    let url = null;
+    if (match[1]) {
+      const entry = SCRIPTURE_BOOKS[normalizeBookKey(match[1])];
+      if (entry) {
+        currentEntry = entry;
+        url = scriptureUrlFromEntry(entry, match[2], match[3]);
+      }
+    } else if (match[4] && currentEntry) {
+      url = scriptureUrlFromEntry(currentEntry, match[4], match[5]);
+    }
+    out += url ? `<a href="${url}" target="_blank" rel="noopener">${escapeHtml(full)}</a>` : escapeHtml(full);
+    last = match.index + full.length;
+  }
+  return out + escapeHtml(raw.slice(last));
+}
+
+// The heading reading reference ("Ruth; 1 Samuel 1–7") links each book to its
+// chapter — and a whole-book reference with no chapter points to chapter 1.
+function linkifyReadingRef(reference) {
+  const anchor = (url, text) => `<a href="${url}" target="_blank" rel="noopener">${escapeHtml(text)}</a>`;
+  let lastEntry = null;
+  return reference
+    .split(/;\s*/)
+    .map((segment) => {
+      segment = segment.trim();
+      if (!segment) return "";
+      const book = /^((?:[1-3]\s)?[A-Za-z][A-Za-z.&]*(?:\sof\sSolomon)?)\s*(\d+)?/.exec(segment);
+      if (book && SCRIPTURE_BOOKS[normalizeBookKey(book[1])]) {
+        lastEntry = SCRIPTURE_BOOKS[normalizeBookKey(book[1])];
+        return anchor(scriptureUrlFromEntry(lastEntry, book[2] || 1), segment);
+      }
+      const chapter = /^(\d+)/.exec(segment); // continuation like "13" or "15–16"
+      if (chapter && lastEntry) return anchor(scriptureUrlFromEntry(lastEntry, chapter[1]), segment);
+      return escapeHtml(segment);
+    })
+    .join("; ");
+}
+
 // Lesson titles read like Come Follow Me headings: quoted and italicized.
 function lessonTitleHtml(ctx, fallback) {
   if (ctx?.lessonTitle) return `<em class="lesson-quote">&ldquo;${escapeHtml(ctx.lessonTitle)}&rdquo;</em>`;
@@ -119,17 +224,33 @@ function lessonTitleHtml(ctx, fallback) {
 }
 
 function renderContextBody(ctx) {
-  const people = (ctx.people || [])
-    .map((p) => `<li><strong>${escapeHtml(p.name)}</strong> — ${escapeHtml(p.note)}</li>`)
-    .join("");
-  const places = (ctx.locations || [])
-    .map((p) => `<li><strong>${escapeHtml(p.name)}</strong> — ${escapeHtml(p.note)}</li>`)
+  // Link scripture references, and link "Come Follow Me manual" to this week's lesson.
+  const fmt = (s) => {
+    let html = linkifyScriptures(s);
+    if (ctx.manualUrl) {
+      html = html.replace(
+        /Come Follow Me manual/gi,
+        `<a href="${ctx.manualUrl}" target="_blank" rel="noopener">$&</a>`
+      );
+    }
+    return html;
+  };
+  const src = (s) => (s ? ` <span class="ctx-src">${fmt(s)}</span>` : "");
+  const srcLine = (s) => (s ? `<p class="ctx-src-line">Source: ${fmt(s)}</p>` : "");
+  const item = (p) => `<li><strong>${escapeHtml(p.name)}</strong> — ${fmt(p.note)}${src(p.source)}</li>`;
+
+  const people = (ctx.people || []).map(item).join("");
+  const places = (ctx.locations || []).map(item).join("");
+  const manual = (ctx.manualHighlights || [])
+    .map((h) => `<li>${fmt(h.note)}${src(h.source)}</li>`)
     .join("");
   return `
-    ${ctx.summary ? `<p class="context-summary">${escapeHtml(ctx.summary)}</p>` : ""}
+    ${ctx.provenanceNote ? `<p class="ctx-note">${escapeHtml(ctx.provenanceNote)}</p>` : ""}
+    ${ctx.summary ? `<p class="context-summary">${fmt(ctx.summary)}</p>${srcLine(ctx.summarySource)}` : ""}
     ${people ? `<h4>Who's who</h4><ul class="context-list">${people}</ul>` : ""}
     ${places ? `<h4>Places</h4><ul class="context-list">${places}</ul>` : ""}
-    ${ctx.background ? `<h4>Background</h4><p>${escapeHtml(ctx.background)}</p>` : ""}`;
+    ${manual ? `<h4>From the Come Follow Me manual</h4><ul class="context-list">${manual}</ul>` : ""}
+    ${ctx.background ? `<h4>Background</h4><p>${fmt(ctx.background)}</p>${srcLine(ctx.backgroundSource)}` : ""}`;
 }
 
 // Admin/preview mode for building: add ?admin=1 to the URL for a toolbar that
@@ -186,6 +307,65 @@ function showAdminBar() {
   });
 }
 
+// Single shared sign-in for both games. Storing the player + PIN here lets each
+// game start its own official run (and clock) on the player's first move.
+function setupSignIn(players) {
+  const select = document.querySelector("#signin-player");
+  const pin = document.querySelector("#signin-pin");
+  const button = document.querySelector("#signin-button");
+  const fields = document.querySelector("#signin-fields");
+  const active = document.querySelector("#signin-active");
+  const nameLabel = document.querySelector("#signin-name");
+  const change = document.querySelector("#signin-change");
+  const msg = document.querySelector("#signin-msg");
+
+  const options = players
+    .filter((player) => player.active !== false)
+    .map((player) => `<option value="${escapeHtml(player.id)}">${escapeHtml(player.displayName)}</option>`);
+  select.insertAdjacentHTML("beforeend", options.join(""));
+
+  button.addEventListener("click", async () => {
+    const player = players.find((candidate) => candidate.id === select.value);
+    const pinValue = pin.value.trim();
+    if (!player || !pinValue) {
+      msg.textContent = "Choose your name and enter your PIN.";
+      msg.classList.add("is-error");
+      return;
+    }
+
+    button.disabled = true;
+    msg.classList.remove("is-error");
+    msg.textContent = "Checking PIN...";
+    try {
+      const response = await scoreClient.validate({ playerId: player.id, pin: pinValue });
+      if (!response.ok) throw new Error(response.error || "That PIN does not match.");
+
+      signIn = { player, pin: pinValue };
+      nameLabel.textContent = player.displayName;
+      fields.hidden = true;
+      active.hidden = false;
+      msg.textContent = "Your clock starts on your first move in each game.";
+
+      // Reveal admin tools right away for admin players.
+      if (response.isAdmin) showAdminBar();
+    } catch (error) {
+      msg.classList.add("is-error");
+      msg.textContent = error.message;
+    } finally {
+      button.disabled = false;
+    }
+  });
+
+  change.addEventListener("click", () => {
+    signIn = null;
+    pin.value = "";
+    fields.hidden = false;
+    active.hidden = true;
+    msg.classList.remove("is-error");
+    msg.textContent = "Sign in once, then your clock starts on your first move in each game.";
+  });
+}
+
 function bindTabs(strandsPuzzle) {
   const tabs = document.querySelectorAll("[data-view-target]");
   if (!strandsPuzzle) {
@@ -215,15 +395,15 @@ function switchView(target) {
 // ---------------------------------------------------------------------------
 
 class GameController {
-  constructor({ prefix, puzzle, players, context, adapter }) {
+  constructor({ prefix, puzzle, context, adapter }) {
     this.prefix = prefix;
     this.puzzle = puzzle;
-    this.players = players;
     this.context = context;
     this.adapter = adapter;
     this.adapter.controller = this;
 
     this.started = false;
+    this.starting = false;
     this.completed = false;
     this.submitting = false;
     this.player = null;
@@ -240,10 +420,6 @@ class GameController {
       title: id("puzzle-title"),
       readingRef: id("reading-ref"),
       deadline: id("deadline-label"),
-      form: id("player-form"),
-      select: id("player-select"),
-      pin: id("pin-input"),
-      start: id("start-button"),
       status: id("submission-status"),
       timer: id("timer-value"),
       mistakes: id("mistake-value"),
@@ -254,9 +430,7 @@ class GameController {
 
   init() {
     this.renderHeader();
-    this.renderPlayers();
     this.adapter.render();
-    this.els.form.addEventListener("submit", (event) => this.start(event));
     this.setControls();
     this.updateMetrics();
   }
@@ -268,7 +442,7 @@ class GameController {
     // Mimic the Come Follow Me weekly heading: dates, lesson title, scriptures.
     this.els.idLabel.textContent = ctx?.dateLabel ? `${ctx.dateLabel} · ${gameLabel}` : gameLabel;
     this.els.title.innerHTML = lessonTitleHtml(ctx, this.puzzle.title);
-    if (this.els.readingRef) this.els.readingRef.textContent = ctx?.reference || "";
+    if (this.els.readingRef) this.els.readingRef.innerHTML = ctx?.reference ? linkifyReadingRef(ctx.reference) : "";
 
     // Player panel: which game + how to play.
     this.els.heading.textContent = gameLabel;
@@ -276,65 +450,49 @@ class GameController {
     this.els.deadline.textContent = formatDeadline(this.puzzle.closesAt);
   }
 
-  renderPlayers() {
-    this.els.select.querySelectorAll("option:not([value=''])").forEach((option) => option.remove());
-    const options = this.players
-      .filter((player) => player.active !== false)
-      .map((player) => `<option value="${escapeHtml(player.id)}">${escapeHtml(player.displayName)}</option>`);
-    this.els.select.insertAdjacentHTML("beforeend", options.join(""));
-  }
+  // Start the official run (and clock) lazily, on the player's first move.
+  // Returns true once the game is running. The PIN is verified here, server-side.
+  async ensureStarted() {
+    if (this.started) return true;
+    if (this.completed || this.starting) return false;
 
-  async start(event) {
-    event.preventDefault();
-    const player = this.players.find((candidate) => candidate.id === this.els.select.value);
-    const pin = this.els.pin.value.trim();
-    if (!player || !pin) {
-      this.setStatus("Choose your name and enter your PIN before starting.", "error");
-      return;
+    const creds = getCreds();
+    if (!creds) {
+      this.setStatus("Sign in (name + PIN) at the top to play.", "error");
+      return false;
     }
 
-    this.setStatus("Starting your official run...");
-    this.els.start.disabled = true;
-
+    this.starting = true;
     try {
       const response = await scoreClient.start({
         puzzleId: this.puzzle.id,
-        playerId: player.id,
-        pin,
-        displayName: player.displayName
+        playerId: creds.player.id,
+        pin: creds.pin,
+        displayName: creds.player.displayName
       });
       if (!response.ok) throw new Error(response.error || "The score sheet rejected this start request.");
 
-      this.player = player;
-      this.pin = pin;
+      this.player = creds.player;
+      this.pin = creds.pin;
       this.runId = response.runId;
       this.startedAt = response.startedAt ? new Date(response.startedAt).getTime() : Date.now();
       this.started = true;
-      this.completed = false;
       this.timerHandle = window.setInterval(() => this.updateMetrics(), 250);
 
-      this.els.select.disabled = true;
-      this.els.pin.disabled = true;
       this.setStatus(
-        response.local
-          ? "Practice mode started. Add a Google Script URL to submit official scores."
-          : "Official run started. Finish the board to submit your score.",
+        response.local ? "Practice run — timer started." : "Official run started — your timer is running.",
         response.local ? "" : "success"
       );
-
-      // Admin (per the Players-tab `admin` flag, verified server-side): reveal
-      // the preview tools.
-      if (response.isAdmin) {
-        showAdminBar();
-        this.setStatus("Admin signed in — preview tools are available at the bottom of the screen.", "success");
-      }
-      this.adapter.render();
-      this.setControls();
+      if (response.isAdmin) showAdminBar();
       this.updateMetrics();
+      this.setControls();
+      return true;
     } catch (error) {
       console.error(error);
-      this.els.start.disabled = false;
       this.setStatus(error.message, "error");
+      return false;
+    } finally {
+      this.starting = false;
     }
   }
 
@@ -431,6 +589,7 @@ class ConnectionsBoard {
     this.hintsUsed = 0;
     this.selectedIds = new Set();
     this.solvedCategoryIds = new Set();
+    this.hintedCategoryIds = new Set();
     this.tiles = shuffle(
       puzzle.categories.flatMap((category) =>
         category.items.map((label, index) => ({ id: `${category.id}-${index}`, categoryId: category.id, label }))
@@ -439,17 +598,34 @@ class ConnectionsBoard {
 
     this.grid = document.querySelector("#c-tile-grid");
     this.solved = document.querySelector("#c-solved-groups");
+    this.hintList = document.querySelector("#c-hint-list");
     this.checkButton = document.querySelector("#c-check-button");
+    this.hintButton = document.querySelector("#c-hint-button");
     this.shuffleButton = document.querySelector("#c-shuffle-button");
     this.clearButton = document.querySelector("#c-clear-button");
 
     this.checkButton.addEventListener("click", () => this.check());
+    this.hintButton.addEventListener("click", () => this.hint());
     this.shuffleButton.addEventListener("click", () => this.shuffleTiles());
     this.clearButton.addEventListener("click", () => {
       this.selectedIds.clear();
       this.render();
       this.controller.onProgress();
     });
+  }
+
+  async hint() {
+    if (this.controller.completed) return;
+    if (!this.controller.started && !(await this.controller.ensureStarted())) return;
+    const category = this.puzzle.categories.find(
+      (candidate) => !this.solvedCategoryIds.has(candidate.id) && !this.hintedCategoryIds.has(candidate.id)
+    );
+    if (!category) return;
+    this.hintedCategoryIds.add(category.id);
+    this.hintsUsed += 1;
+    this.controller.setStatus(`Hint: one group is "${category.title}".`, "");
+    this.render();
+    this.controller.onProgress();
   }
 
   isComplete() {
@@ -477,6 +653,12 @@ class ConnectionsBoard {
       )
       .join("");
 
+    // Revealed hints for groups not yet solved.
+    this.hintList.innerHTML = this.puzzle.categories
+      .filter((category) => this.hintedCategoryIds.has(category.id) && !this.solvedCategoryIds.has(category.id))
+      .map((category) => `<span class="hint-chip">Hint: ${escapeHtml(category.title)}</span>`)
+      .join("");
+
     this.grid.innerHTML = unsolved
       .map((tile) => {
         const classes = [
@@ -495,11 +677,9 @@ class ConnectionsBoard {
     });
   }
 
-  toggle(tileId) {
-    if (!this.controller.canPlay) {
-      this.controller.setStatus("Start the puzzle before selecting tiles.", "error");
-      return;
-    }
+  async toggle(tileId) {
+    if (this.controller.completed) return;
+    if (!this.controller.started && !(await this.controller.ensureStarted())) return;
     if (this.selectedIds.has(tileId)) {
       this.selectedIds.delete(tileId);
     } else if (this.selectedIds.size < 4) {
@@ -553,7 +733,11 @@ class ConnectionsBoard {
 
   setControls() {
     const canPlay = this.controller.canPlay;
+    const hintsLeft = this.puzzle.categories.some(
+      (category) => !this.solvedCategoryIds.has(category.id) && !this.hintedCategoryIds.has(category.id)
+    );
     this.checkButton.disabled = !canPlay || this.selectedIds.size !== 4;
+    this.hintButton.disabled = !canPlay || !hintsLeft;
     this.shuffleButton.disabled = !canPlay;
     this.clearButton.disabled = !canPlay || this.selectedIds.size === 0;
   }
@@ -691,11 +875,9 @@ class StrandsBoard {
     this.linksEl.innerHTML = segments.join("");
   }
 
-  tap(cell) {
-    if (!this.controller.canPlay) {
-      this.controller.setStatus("Start the puzzle before tracing letters.", "error");
-      return;
-    }
+  async tap(cell) {
+    if (this.controller.completed) return;
+    if (!this.controller.started && !(await this.controller.ensureStarted())) return;
     if (this.foundCells.has(cell)) return; // already part of a solved word
 
     const index = this.path.indexOf(cell);
@@ -900,6 +1082,19 @@ function escapeHtml(value) {
 }
 
 const scoreClient = {
+  async validate(payload) {
+    // Practice mode (no backend) can't verify a PIN, so accept the sign-in.
+    if (!config.googleScriptUrl) return { ok: true, local: true, isAdmin: false };
+    const response = await callGoogleScript({ action: "validate", ...payload });
+    if (response && response.ok) return response;
+    // If the deployed backend predates the validate action, allow sign-in; the
+    // PIN is still verified on the first move and admin appears then.
+    if (response && /unknown action/i.test(response.error || "")) {
+      return { ok: true, isAdmin: false, deferred: true };
+    }
+    return response;
+  },
+
   async start(payload) {
     if (!config.googleScriptUrl) {
       return { ok: true, local: true, runId: `local-${crypto.randomUUID()}`, startedAt: new Date().toISOString() };

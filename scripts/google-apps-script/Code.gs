@@ -78,6 +78,8 @@ function doGet(e) {
       payload = { ok: true, now: iso_(new Date()) };
     } else if (action === "players") {
       payload = listPlayers_();
+    } else if (action === "validate") {
+      payload = validateSignIn_(params);
     } else if (action === "start") {
       payload = startRun_(params, e);
     } else if (action === "submit") {
@@ -107,6 +109,18 @@ function listPlayers_() {
     });
 
   return { ok: true, players: players };
+}
+
+// Verify a player's PIN at sign-in without recording a run. Returns whether
+// the player is an admin so the app can reveal preview tools immediately.
+function validateSignIn_(params) {
+  var player = validatePlayer_(params.playerId, params.pin);
+  return {
+    ok: true,
+    playerId: player.playerId,
+    displayName: player.displayName,
+    isAdmin: String(player.admin).toLowerCase() === "true"
+  };
 }
 
 function startRun_(params, event) {

@@ -124,7 +124,7 @@ function solve({ cols, rows, spangram, themeWords }) {
     if (place(0)) return placed;
 
     function place(i) {
-      if (i === order.length) return true;
+      if (i === order.length) return hasUniquePaths(placed, cols, rows, total);
       if (budget.nodes-- <= 0) return false;
 
       const { word, isSpangram } = order[i];
@@ -211,6 +211,46 @@ function diagSquare(a, b, cols) {
   return Math.min(ar, br) * cols + Math.min(ac, bc);
 }
 
+// True when every placed word has exactly one legal traceable path in the grid
+// the placement produces. Used to reject ambiguous layouts during the search.
+function hasUniquePaths(placed, cols, rows, total) {
+  const grid = new Array(total).fill("");
+  for (const p of placed) p.cells.forEach((cell, li) => (grid[cell] = p.word[li]));
+  return placed.every((p) => countSpellings(grid, p.word, cols, rows, 2) === 1);
+}
+
+// Counts how many distinct legal paths spell `word` in the grid: 8-directional
+// adjacency, each cell used once, and no diagonal that crosses an earlier
+// diagonal of the same path (Strands legality). Stops counting at `cap`.
+function countSpellings(grid, word, cols, rows, cap = 2) {
+  const total = cols * rows;
+  let count = 0;
+
+  function dfs(cell, idx, usedCells, usedSquares) {
+    if (idx === word.length - 1) {
+      count += 1;
+      return;
+    }
+    for (const next of neighbors(cell, cols, rows)) {
+      if (count >= cap) return;
+      if (usedCells.has(next) || grid[next] !== word[idx + 1]) continue;
+      const square = diagSquare(cell, next, cols);
+      if (square !== null && usedSquares.has(square)) continue;
+      usedCells.add(next);
+      if (square !== null) usedSquares.add(square);
+      dfs(next, idx + 1, usedCells, usedSquares);
+      usedCells.delete(next);
+      if (square !== null) usedSquares.delete(square);
+    }
+  }
+
+  for (let start = 0; start < total && count < cap; start += 1) {
+    if (grid[start] !== word[0]) continue;
+    dfs(start, 0, new Set([start]), new Set());
+  }
+  return count;
+}
+
 function neighbors(cell, cols, rows) {
   const r = Math.floor(cell / cols);
   const c = cell % cols;
@@ -262,6 +302,15 @@ function validate(puzzle) {
   if (owner.some((o) => o === -1)) return { ok: false, error: "grid not fully covered" };
   if (!touchesOppositeSides(puzzle.spangram.cells, cols, rows)) {
     return { ok: false, error: "spangram does not span opposite sides" };
+  }
+
+  // Each word must be traceable exactly one way. If a word can be spelled along
+  // a second legal path (e.g. a duplicate letter sits next to the intended one),
+  // the intended path is ambiguous — NYT Strands never does this.
+  for (const { word } of all) {
+    if (countSpellings(grid, word, cols, rows, 2) !== 1) {
+      return { ok: false, error: `${word} can be traced more than one way (ambiguous path)` };
+    }
   }
 
   // No two word paths (or one path with itself) may cross: each 2x2 square can

@@ -250,10 +250,44 @@ function exportSubmissions_(params) {
       };
     });
 
+  // Runs (every game START — the clock begins on the player's first move). A run
+  // with no matching submission means the player attempted the puzzle but did not
+  // finish; the finalizer floors those at the participation score.
+  var runs = getRows_(SHEET_NAMES.runs)
+    .filter(function (row) {
+      return !puzzleId || row.puzzleId === puzzleId;
+    })
+    .map(function (row) {
+      return {
+        runId: row.runId,
+        puzzleId: row.puzzleId,
+        playerId: row.playerId,
+        displayName: row.displayName,
+        startedAt: row.startedAt
+      };
+    });
+
+  // Full active roster (with admin flag) so the finalizer can list every player
+  // and exclude admins even when they did not submit. Admin-key gated, so the
+  // admin flag stays private.
+  var roster = getRows_(SHEET_NAMES.players)
+    .filter(function (row) {
+      return String(row.active).toLowerCase() !== "false";
+    })
+    .map(function (row) {
+      return {
+        playerId: row.playerId,
+        displayName: row.displayName,
+        admin: String(row.admin).toLowerCase() === "true"
+      };
+    });
+
   return {
     ok: true,
     puzzleId: puzzleId,
-    submissions: submissions
+    submissions: submissions,
+    runs: runs,
+    roster: roster
   };
 }
 

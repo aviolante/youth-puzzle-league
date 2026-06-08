@@ -972,6 +972,8 @@ function renderLeaderboards(weekly, season) {
     ? `Finalized ${formatShortDate(weekly.finalizedAt)}`
     : "Not finalized";
 
+  const egg = "🥚";
+  const goose = "🪿"; // double goose-egg: played neither game
   weeklyBody.innerHTML = weekly.standings?.length
     ? weekly.standings
         .map(
@@ -979,10 +981,10 @@ function renderLeaderboards(weekly, season) {
             <tr>
               <td>${row.rank}</td>
               <td>${escapeHtml(row.displayName)}</td>
-              <td>${escapeHtml(row.formattedTime || formatTime(row.elapsedMs))}</td>
-              <td>${row.mistakes}</td>
-              <td>${row.rawScore}</td>
-              <td>${row.weeklyPoints}</td>
+              <td>${row.connectionsScore ?? egg}</td>
+              <td>${row.strandsScore ?? egg}</td>
+              <td><strong>${row.played ? row.total : goose}</strong></td>
+              <td>${row.formattedTime ? escapeHtml(row.formattedTime) : "—"}</td>
             </tr>`
         )
         .join("")
@@ -997,13 +999,12 @@ function renderLeaderboards(weekly, season) {
             <tr>
               <td>${row.rank}</td>
               <td>${escapeHtml(row.displayName)}</td>
-              <td>${row.totalPoints}</td>
+              <td><strong>${row.totalScore}</strong></td>
               <td>${row.weeksPlayed}</td>
-              <td>${row.wins}</td>
             </tr>`
         )
         .join("")
-    : `<tr><td colspan="5">No season results yet.</td></tr>`;
+    : `<tr><td colspan="4">No season results yet.</td></tr>`;
 }
 
 // ---------------------------------------------------------------------------

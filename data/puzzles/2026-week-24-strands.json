@@ -1,0 +1,157 @@
+{
+  "id": "2026-week-24-strands",
+  "title": "Anointed Strands",
+  "type": "strands",
+  "opensAt": "2026-06-08T04:00:00Z",
+  "closesAt": "2026-06-14T04:00:00Z",
+  "theme": "1 Samuel — a prophet, two kings, and the heart",
+  "clue": "Samuel poured oil to set apart Israel's first two kings. The spangram names what that made them.",
+  "instructions": "Find every theme word by linking neighboring letters. One word is the spangram and stretches across the whole board.",
+  "cols": 6,
+  "rows": 8,
+  "grid": [
+    "S",
+    "D",
+    "A",
+    "V",
+    "D",
+    "R",
+    "D",
+    "A",
+    "M",
+    "U",
+    "I",
+    "E",
+    "E",
+    "L",
+    "E",
+    "O",
+    "S",
+    "E",
+    "T",
+    "N",
+    "I",
+    "H",
+    "N",
+    "A",
+    "D",
+    "G",
+    "A",
+    "E",
+    "O",
+    "Y",
+    "O",
+    "N",
+    "I",
+    "R",
+    "B",
+    "E",
+    "M",
+    "K",
+    "J",
+    "E",
+    "T",
+    "A",
+    "E",
+    "S",
+    "S",
+    "L",
+    "U",
+    "S"
+  ],
+  "spangram": {
+    "word": "ANOINTED",
+    "cells": [
+      23,
+      22,
+      15,
+      20,
+      19,
+      18,
+      12,
+      6
+    ]
+  },
+  "themeWords": [
+    {
+      "word": "KINGDOM",
+      "cells": [
+        37,
+        32,
+        31,
+        25,
+        24,
+        30,
+        36
+      ]
+    },
+    {
+      "word": "SAMUEL",
+      "cells": [
+        0,
+        7,
+        8,
+        9,
+        14,
+        13
+      ]
+    },
+    {
+      "word": "DAVID",
+      "cells": [
+        1,
+        2,
+        3,
+        10,
+        4
+      ]
+    },
+    {
+      "word": "JESSE",
+      "cells": [
+        38,
+        39,
+        44,
+        43,
+        42
+      ]
+    },
+    {
+      "word": "HEART",
+      "cells": [
+        21,
+        27,
+        26,
+        33,
+        40
+      ]
+    },
+    {
+      "word": "SAUL",
+      "cells": [
+        47,
+        41,
+        46,
+        45
+      ]
+    },
+    {
+      "word": "OBEY",
+      "cells": [
+        28,
+        34,
+        35,
+        29
+      ]
+    },
+    {
+      "word": "SEER",
+      "cells": [
+        16,
+        17,
+        11,
+        5
+      ]
+    }
+  ]
+}

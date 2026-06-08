@@ -1,0 +1,30 @@
+{
+  "id": "2026-week-24",
+  "title": "The Lord Looketh on the Heart Connections",
+  "type": "connections",
+  "opensAt": "2026-06-08T04:00:00Z",
+  "closesAt": "2026-06-14T04:00:00Z",
+  "instructions": "Find four groups of four. Everything comes from this week's reading: 1 Samuel 8–10; 13; 15–16.",
+  "categories": [
+    {
+      "id": "people",
+      "title": "People in the reading",
+      "items": ["Samuel", "Saul", "David", "Jesse"]
+    },
+    {
+      "id": "places",
+      "title": "Towns and places",
+      "items": ["Ramah", "Gilgal", "Gibeah", "Bethlehem"]
+    },
+    {
+      "id": "kings-warning",
+      "title": "\"He will take your…\" — Samuel's warning about a king (1 Sam. 8)",
+      "items": ["Sons", "Daughters", "Fields", "Vineyards"]
+    },
+    {
+      "id": "spared-spoil",
+      "title": "Best of the spoil Saul kept (1 Sam. 15)",
+      "items": ["Sheep", "Oxen", "Fatlings", "Lambs"]
+    }
+  ]
+}

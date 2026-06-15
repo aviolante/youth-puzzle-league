@@ -1,0 +1,199 @@
+{
+  "puzzleId": "2026-week-24",
+  "finalizedAt": "2026-06-15T14:49:21.587Z",
+  "scoring": {
+    "rawScore": "finished game: max(200, 1000 - elapsedSeconds*1 - mistakes*25 - hintsUsed*50) (capped at 1000); attempted but unfinished: 100",
+    "weekTotal": "Connections score + Strands score"
+  },
+  "standings": [
+    {
+      "rank": 1,
+      "displayName": "Devin G.",
+      "connectionsScore": 933,
+      "strandsScore": 881,
+      "total": 1814,
+      "played": true,
+      "formattedTime": "2:41"
+    },
+    {
+      "rank": 2,
+      "displayName": "Pete",
+      "connectionsScore": 951,
+      "strandsScore": 516,
+      "total": 1467,
+      "played": true,
+      "formattedTime": "5:08"
+    },
+    {
+      "rank": 3,
+      "displayName": "Spencer B.",
+      "connectionsScore": 907,
+      "strandsScore": 200,
+      "total": 1107,
+      "played": true,
+      "formattedTime": "8:02"
+    },
+    {
+      "rank": 4,
+      "displayName": "Jonathan M.",
+      "connectionsScore": 675,
+      "strandsScore": 200,
+      "total": 875,
+      "played": true,
+      "formattedTime": "5:45"
+    },
+    {
+      "rank": 5,
+      "displayName": "Bryan T.",
+      "connectionsScore": null,
+      "strandsScore": null,
+      "total": 0,
+      "played": false,
+      "formattedTime": null
+    },
+    {
+      "rank": 6,
+      "displayName": "Bryson S.",
+      "connectionsScore": null,
+      "strandsScore": null,
+      "total": 0,
+      "played": false,
+      "formattedTime": null
+    },
+    {
+      "rank": 7,
+      "displayName": "Caleb C.",
+      "connectionsScore": null,
+      "strandsScore": null,
+      "total": 0,
+      "played": false,
+      "formattedTime": null
+    },
+    {
+      "rank": 8,
+      "displayName": "Charles G.",
+      "connectionsScore": null,
+      "strandsScore": null,
+      "total": 0,
+      "played": false,
+      "formattedTime": null
+    },
+    {
+      "rank": 9,
+      "displayName": "Colter H.",
+      "connectionsScore": null,
+      "strandsScore": null,
+      "total": 0,
+      "played": false,
+      "formattedTime": null
+    },
+    {
+      "rank": 10,
+      "displayName": "Diego A.",
+      "connectionsScore": null,
+      "strandsScore": null,
+      "total": 0,
+      "played": false,
+      "formattedTime": null
+    },
+    {
+      "rank": 11,
+      "displayName": "Dominic P.",
+      "connectionsScore": null,
+      "strandsScore": null,
+      "total": 0,
+      "played": false,
+      "formattedTime": null
+    },
+    {
+      "rank": 12,
+      "displayName": "Easton T.",
+      "connectionsScore": null,
+      "strandsScore": null,
+      "total": 0,
+      "played": false,
+      "formattedTime": null
+    },
+    {
+      "rank": 13,
+      "displayName": "Houston H.",
+      "connectionsScore": null,
+      "strandsScore": null,
+      "total": 0,
+      "played": false,
+      "formattedTime": null
+    },
+    {
+      "rank": 14,
+      "displayName": "Isaac B.",
+      "connectionsScore": null,
+      "strandsScore": null,
+      "total": 0,
+      "played": false,
+      "formattedTime": null
+    },
+    {
+      "rank": 15,
+      "displayName": "Jack A.",
+      "connectionsScore": null,
+      "strandsScore": null,
+      "total": 0,
+      "played": false,
+      "formattedTime": null
+    },
+    {
+      "rank": 16,
+      "displayName": "Jared C.",
+      "connectionsScore": null,
+      "strandsScore": null,
+      "total": 0,
+      "played": false,
+      "formattedTime": null
+    },
+    {
+      "rank": 17,
+      "displayName": "Jared P.",
+      "connectionsScore": null,
+      "strandsScore": null,
+      "total": 0,
+      "played": false,
+      "formattedTime": null
+    },
+    {
+      "rank": 18,
+      "displayName": "Levi P.",
+      "connectionsScore": null,
+      "strandsScore": null,
+      "total": 0,
+      "played": false,
+      "formattedTime": null
+    },
+    {
+      "rank": 19,
+      "displayName": "Noah V.",
+      "connectionsScore": null,
+      "strandsScore": null,
+      "total": 0,
+      "played": false,
+      "formattedTime": null
+    },
+    {
+      "rank": 20,
+      "displayName": "Oliver B.",
+      "connectionsScore": null,
+      "strandsScore": null,
+      "total": 0,
+      "played": false,
+      "formattedTime": null
+    },
+    {
+      "rank": 21,
+      "displayName": "Thomas G.",
+      "connectionsScore": null,
+      "strandsScore": null,
+      "total": 0,
+      "played": false,
+      "formattedTime": null
+    }
+  ]
+}

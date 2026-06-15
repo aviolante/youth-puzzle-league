@@ -20,8 +20,9 @@ import process from "node:process";
 
 const args = parseArgs(process.argv.slice(2));
 const week = args.week || "2026-week-23";
-// Opens Monday 00:00 ET; closes end of Saturday (Sunday 00:00 ET) — the weekly
-// submission deadline. Override with --opensAt / --closesAt if needed.
+// Opens Monday 00:00 ET; closes Sunday at midnight ET (= the following Monday
+// 00:00 ET, end of Sunday night) — the weekly submission deadline. Override with
+// --opensAt / --closesAt if needed.
 const weekDates = weekDatesFor(week);
 
 // This week's defaults (Ruth & 1 Samuel). Override with --spangram / --words.
@@ -359,15 +360,16 @@ function shuffle(items) {
   return copy;
 }
 
-// Compute opensAt (Mon 00:00 ET) and closesAt (Sun 00:00 ET = end of Saturday)
-// for a "2026-week-NN" id, handling US Eastern DST.
+// Compute opensAt (Mon 00:00 ET) and closesAt (Sunday at midnight ET = the
+// following Mon 00:00 ET, end of Sunday night) for a "2026-week-NN" id, handling
+// US Eastern DST.
 function weekDatesFor(weekId) {
   const match = /^(\d{4})-week-(\d{1,2})$/.exec(String(weekId));
   if (!match) return null;
   const monday = isoWeekMonday(Number(match[1]), Number(match[2]));
-  const sunday = new Date(monday);
-  sunday.setUTCDate(monday.getUTCDate() + 6);
-  return { opensAt: etMidnightUtc(monday), closesAt: etMidnightUtc(sunday) };
+  const close = new Date(monday);
+  close.setUTCDate(monday.getUTCDate() + 7); // next Monday 00:00 ET = end of Sunday
+  return { opensAt: etMidnightUtc(monday), closesAt: etMidnightUtc(close) };
 }
 
 function isoWeekMonday(year, week) {

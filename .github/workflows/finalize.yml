@@ -7,7 +7,7 @@ name: Weekly leaderboard preview
 #   git add data/leaderboards && git commit -m "Publish week" && git push
 on:
   schedule:
-    - cron: "0 13 * * 0" # Sundays 13:00 UTC, after the Sat-night ET deadline
+    - cron: "0 13 * * 1" # Mondays 13:00 UTC, after the Sun-midnight ET deadline
   workflow_dispatch: {}
 
 permissions:

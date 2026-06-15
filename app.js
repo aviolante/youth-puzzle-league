@@ -1000,11 +1000,12 @@ function renderLeaderboards(weekly, season) {
               <td>${row.rank}</td>
               <td>${escapeHtml(row.displayName)}</td>
               <td><strong>${row.totalScore}</strong></td>
+              <td>${row.averageScore ?? "-"}</td>
               <td>${row.weeksPlayed}</td>
             </tr>`
         )
         .join("")
-    : `<tr><td colspan="4">No season results yet.</td></tr>`;
+    : `<tr><td colspan="5">No season results yet.</td></tr>`;
 }
 
 // ---------------------------------------------------------------------------

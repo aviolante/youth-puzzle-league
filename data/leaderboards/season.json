@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-15T14:49:21.588Z",
+  "updatedAt": "2026-06-15T14:54:28.904Z",
   "weeks": {
     "2026-week-23": [
       {
@@ -41,50 +41,6 @@
       {
         "displayName": "Charles G.",
         "total": 100
-      },
-      {
-        "displayName": "Bryan T.",
-        "total": 0
-      },
-      {
-        "displayName": "Caleb C.",
-        "total": 0
-      },
-      {
-        "displayName": "Colter H.",
-        "total": 0
-      },
-      {
-        "displayName": "Diego A.",
-        "total": 0
-      },
-      {
-        "displayName": "Dominic P.",
-        "total": 0
-      },
-      {
-        "displayName": "Easton T.",
-        "total": 0
-      },
-      {
-        "displayName": "Isaac B.",
-        "total": 0
-      },
-      {
-        "displayName": "Jack A.",
-        "total": 0
-      },
-      {
-        "displayName": "Jared C.",
-        "total": 0
-      },
-      {
-        "displayName": "Jared P.",
-        "total": 0
-      },
-      {
-        "displayName": "Oliver B.",
-        "total": 0
       }
     ],
     "2026-week-24": [
@@ -103,74 +59,6 @@
       {
         "displayName": "Jonathan M.",
         "total": 875
-      },
-      {
-        "displayName": "Bryan T.",
-        "total": 0
-      },
-      {
-        "displayName": "Bryson S.",
-        "total": 0
-      },
-      {
-        "displayName": "Caleb C.",
-        "total": 0
-      },
-      {
-        "displayName": "Charles G.",
-        "total": 0
-      },
-      {
-        "displayName": "Colter H.",
-        "total": 0
-      },
-      {
-        "displayName": "Diego A.",
-        "total": 0
-      },
-      {
-        "displayName": "Dominic P.",
-        "total": 0
-      },
-      {
-        "displayName": "Easton T.",
-        "total": 0
-      },
-      {
-        "displayName": "Houston H.",
-        "total": 0
-      },
-      {
-        "displayName": "Isaac B.",
-        "total": 0
-      },
-      {
-        "displayName": "Jack A.",
-        "total": 0
-      },
-      {
-        "displayName": "Jared C.",
-        "total": 0
-      },
-      {
-        "displayName": "Jared P.",
-        "total": 0
-      },
-      {
-        "displayName": "Levi P.",
-        "total": 0
-      },
-      {
-        "displayName": "Noah V.",
-        "total": 0
-      },
-      {
-        "displayName": "Oliver B.",
-        "total": 0
-      },
-      {
-        "displayName": "Thomas G.",
-        "total": 0
       }
     ]
   },
@@ -179,127 +67,71 @@
       "rank": 1,
       "displayName": "Pete",
       "totalScore": 3079,
-      "weeksPlayed": 2
+      "weeksPlayed": 2,
+      "averageScore": 1540
     },
     {
       "rank": 2,
       "displayName": "Devin G.",
       "totalScore": 2847,
-      "weeksPlayed": 2
+      "weeksPlayed": 2,
+      "averageScore": 1424
     },
     {
       "rank": 3,
       "displayName": "Spencer B.",
       "totalScore": 2824,
-      "weeksPlayed": 2
+      "weeksPlayed": 2,
+      "averageScore": 1412
     },
     {
       "rank": 4,
       "displayName": "Bryson S.",
       "totalScore": 1177,
-      "weeksPlayed": 2
+      "weeksPlayed": 1,
+      "averageScore": 1177
     },
     {
       "rank": 5,
       "displayName": "Jonathan M.",
       "totalScore": 1075,
-      "weeksPlayed": 2
+      "weeksPlayed": 2,
+      "averageScore": 538
     },
     {
       "rank": 6,
       "displayName": "Houston H.",
       "totalScore": 200,
-      "weeksPlayed": 2
+      "weeksPlayed": 1,
+      "averageScore": 200
     },
     {
       "rank": 7,
       "displayName": "Levi P.",
       "totalScore": 200,
-      "weeksPlayed": 2
+      "weeksPlayed": 1,
+      "averageScore": 200
     },
     {
       "rank": 8,
       "displayName": "Noah V.",
       "totalScore": 200,
-      "weeksPlayed": 2
+      "weeksPlayed": 1,
+      "averageScore": 200
     },
     {
       "rank": 9,
       "displayName": "Thomas G.",
       "totalScore": 200,
-      "weeksPlayed": 2
+      "weeksPlayed": 1,
+      "averageScore": 200
     },
     {
       "rank": 10,
       "displayName": "Charles G.",
       "totalScore": 100,
-      "weeksPlayed": 2
-    },
-    {
-      "rank": 11,
-      "displayName": "Bryan T.",
-      "totalScore": 0,
-      "weeksPlayed": 2
-    },
-    {
-      "rank": 12,
-      "displayName": "Caleb C.",
-      "totalScore": 0,
-      "weeksPlayed": 2
-    },
-    {
-      "rank": 13,
-      "displayName": "Colter H.",
-      "totalScore": 0,
-      "weeksPlayed": 2
-    },
-    {
-      "rank": 14,
-      "displayName": "Diego A.",
-      "totalScore": 0,
-      "weeksPlayed": 2
-    },
-    {
-      "rank": 15,
-      "displayName": "Dominic P.",
-      "totalScore": 0,
-      "weeksPlayed": 2
-    },
-    {
-      "rank": 16,
-      "displayName": "Easton T.",
-      "totalScore": 0,
-      "weeksPlayed": 2
-    },
-    {
-      "rank": 17,
-      "displayName": "Isaac B.",
-      "totalScore": 0,
-      "weeksPlayed": 2
-    },
-    {
-      "rank": 18,
-      "displayName": "Jack A.",
-      "totalScore": 0,
-      "weeksPlayed": 2
-    },
-    {
-      "rank": 19,
-      "displayName": "Jared C.",
-      "totalScore": 0,
-      "weeksPlayed": 2
-    },
-    {
-      "rank": 20,
-      "displayName": "Jared P.",
-      "totalScore": 0,
-      "weeksPlayed": 2
-    },
-    {
-      "rank": 21,
-      "displayName": "Oliver B.",
-      "totalScore": 0,
-      "weeksPlayed": 2
+      "weeksPlayed": 1,
+      "averageScore": 100
     }
   ]
 }

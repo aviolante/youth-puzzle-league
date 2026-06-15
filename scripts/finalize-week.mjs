@@ -253,10 +253,11 @@ async function buildSeasonPreview(weekly) {
   const season = await readJson(seasonPath, { updatedAt: "", weeks: {}, standings: [] });
   season.updatedAt = new Date().toISOString();
   season.weeks = season.weeks || {};
-  season.weeks[weekly.puzzleId] = weekly.standings.map((row) => ({
-    displayName: row.displayName,
-    total: row.total
-  }));
+  // Store only players who actually played this week (attempted a game) — the
+  // 🪿 no-shows don't count toward weeks-played or the average.
+  season.weeks[weekly.puzzleId] = weekly.standings
+    .filter((row) => row.played)
+    .map((row) => ({ displayName: row.displayName, total: row.total }));
   season.standings = buildSeasonStandings(season.weeks);
   return season;
 }
@@ -296,11 +297,16 @@ async function loadPuzzleData(puzzleId) {
 // Season = running total of each week's combined (Connections + Strands) score.
 // Keyed on display name (the published files carry no playerId), so display
 // names must stay unique per player — they already are (first name + last initial).
+// weeksPlayed counts only weeks the player actually played (total > 0); the
+// `total <= 0` guard also drops 🪿 rows left over in any older season weeks.
+// averageScore = totalScore / weeksPlayed, so a late starter isn't penalized for
+// missing earlier weeks.
 function buildSeasonStandings(weeks) {
   const totals = new Map();
 
   Object.values(weeks).forEach((weekRows) => {
     weekRows.forEach((row) => {
+      if (Number(row.total || 0) <= 0) return;
       const current = totals.get(row.displayName) || {
         displayName: row.displayName,
         totalScore: 0,
@@ -322,7 +328,8 @@ function buildSeasonStandings(weeks) {
       rank: index + 1,
       displayName: row.displayName,
       totalScore: row.totalScore,
-      weeksPlayed: row.weeksPlayed
+      weeksPlayed: row.weeksPlayed,
+      averageScore: row.weeksPlayed ? Math.round(row.totalScore / row.weeksPlayed) : 0
     }));
 }
 

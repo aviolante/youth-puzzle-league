@@ -114,14 +114,14 @@ function solve({ cols, rows, spangram, themeWords }) {
 
   // Randomized restarts: each restart re-shuffles the search so we explore
   // different layouts and avoid getting stuck in one dead branch.
-  for (let attempt = 0; attempt < 400; attempt += 1) {
+  for (let attempt = 0; attempt < 1200; attempt += 1) {
     const occupied = new Array(total).fill(false);
     // A 2x2 square can hold only one diagonal segment. If a second word's
     // diagonal used the same square it would be the opposite diagonal, which
     // crosses the first — Strands forbids that. Track occupied diagonal squares.
     const usedDiagSquares = new Set();
     const placed = [];
-    const budget = { nodes: 60000 };
+    const budget = { nodes: 120000 };
     if (place(0)) return placed;
 
     function place(i) {
@@ -220,14 +220,16 @@ function hasUniquePaths(placed, cols, rows, total) {
   return placed.every((p) => countSpellings(grid, p.word, cols, rows, 2) === 1);
 }
 
-// Counts how many distinct legal paths spell `word` in the grid: 8-directional
-// adjacency, each cell used once, and no diagonal that crosses an earlier
-// diagonal of the same path (Strands legality). Stops counting at `cap`.
+// Counts how many distinct routes spell `word` in the grid: 8-directional
+// adjacency, each cell used once. Crossings are NOT exempted — the app matches a
+// found word by its set of cells and doesn't stop a player from tracing a
+// self-crossing route, so ANY second adjacent route (even one that crosses
+// itself) is a real ambiguity. Stops counting at `cap`.
 function countSpellings(grid, word, cols, rows, cap = 2) {
   const total = cols * rows;
   let count = 0;
 
-  function dfs(cell, idx, usedCells, usedSquares) {
+  function dfs(cell, idx, usedCells) {
     if (idx === word.length - 1) {
       count += 1;
       return;
@@ -235,19 +237,15 @@ function countSpellings(grid, word, cols, rows, cap = 2) {
     for (const next of neighbors(cell, cols, rows)) {
       if (count >= cap) return;
       if (usedCells.has(next) || grid[next] !== word[idx + 1]) continue;
-      const square = diagSquare(cell, next, cols);
-      if (square !== null && usedSquares.has(square)) continue;
       usedCells.add(next);
-      if (square !== null) usedSquares.add(square);
-      dfs(next, idx + 1, usedCells, usedSquares);
+      dfs(next, idx + 1, usedCells);
       usedCells.delete(next);
-      if (square !== null) usedSquares.delete(square);
     }
   }
 
   for (let start = 0; start < total && count < cap; start += 1) {
     if (grid[start] !== word[0]) continue;
-    dfs(start, 0, new Set([start]), new Set());
+    dfs(start, 0, new Set([start]));
   }
   return count;
 }

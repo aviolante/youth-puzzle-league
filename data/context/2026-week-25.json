@@ -1,0 +1,83 @@
+{
+  "summary": "David, a young shepherd, defeats the giant Goliath through faith in God, later becomes king of Israel, and demonstrates mercy by sparing Saul's life twice. He establishes Jerusalem as his capital, brings the ark to the city, and receives a covenant promise that his kingdom will endure. Despite facing enemies and personal challenges, David consistently relies on divine guidance and shows Christlike poise.",
+  "summarySource": "1 Samuel 17–18; 24–26; 2 Samuel 5–7",
+  "people": [
+    {
+      "name": "David",
+      "note": "A shepherd and later king of Israel who defeats Goliath, serves Saul faithfully, spares Saul's life, and receives a covenant promise of an eternal kingdom. He demonstrates faith, courage, and reliance on God.",
+      "source": "1 Samuel 17–18; 24–26; 2 Samuel 5–7"
+    },
+    {
+      "name": "Saul",
+      "note": "First king of Israel who becomes increasingly jealous of David's success, attempts to kill him, but later acknowledges David's righteousness. His reign is marked by disobedience and a withdrawn divine presence.",
+      "source": "1 Samuel 17–18; 24–26"
+    },
+    {
+      "name": "Jonathan",
+      "note": "Saul's son who forms a covenant with David, loves him as his own soul, and gives him his royal robe and armor, symbolizing selfless friendship and loyalty.",
+      "source": "1 Samuel 18:1–4"
+    },
+    {
+      "name": "Abigail",
+      "note": "Wife of Nabal who intercedes for her household by offering provisions to David, preventing bloodshed. She later becomes David's wife after Nabal's death.",
+      "source": "1 Samuel 25:1–43"
+    },
+    {
+      "name": "Nabal",
+      "note": "A wealthy but churlish man who refuses to aid David, leading to his death after Abigail's intervention. His name means 'fool,' reflecting his unwise actions.",
+      "source": "1 Samuel 25:3–39"
+    }
+  ],
+  "locations": [
+    {
+      "name": "Valley of Elah",
+      "note": "Site of David's victory over Goliath, where the Philistines and Israelites faced off in battle. David's faith in God leads to Israel's triumph.",
+      "source": "1 Samuel 17:1–58"
+    },
+    {
+      "name": "Jerusalem (City of David)",
+      "note": "Captured by David from the Jebusites, it becomes his capital and a symbol of divine blessing. The ark of God is later brought there.",
+      "source": "2 Samuel 5:6–9; 6:1–19"
+    },
+    {
+      "name": "Wilderness of En-gedi",
+      "note": "Location where David spares Saul's life in a cave, demonstrating mercy and respect for the Lord's anointed.",
+      "source": "1 Samuel 24:1–22"
+    },
+    {
+      "name": "Carmel",
+      "note": "Where Nabal and Abigail reside. David's men protect Nabal's shepherds, but Nabal's refusal to aid David leads to his demise.",
+      "source": "1 Samuel 25:4–44"
+    }
+  ],
+  "background": "The Philistines were a persistent military threat to Israel, often clashing over territory and resources. The period following Samuel's leadership saw Israel's transition to monarchy under Saul, whose reign was marked by disobedience. David, a shepherd and warrior, rises as a divinely chosen leader whose faith and obedience contrast with Saul's declining spiritual state. The covenant between David and Jonathan reflects ancient Near Eastern practices of loyalty and mutual support, while David's treatment of the ark underscores its sacredness and the importance of proper reverence.",
+  "backgroundSource": "Come Follow Me manual; 1 Samuel 8:19–20; 1 Samuel 17–18; 2 Samuel 6",
+  "manualHighlights": [
+    {
+      "note": "David's victory over Goliath demonstrates that faith in the Lord enables individuals to overcome seemingly insurmountable challenges. The story invites reflection on personal challenges and how faith in Christ can provide courage.",
+      "source": "Come Follow Me manual"
+    },
+    {
+      "note": "Jonathan's selfless friendship with David exemplifies Christlike love and loyalty. Their covenant highlights the importance of supportive relationships in spiritual growth.",
+      "source": "Come Follow Me manual"
+    },
+    {
+      "note": "David's repeated sparing of Saul's life teaches forgiveness, self-control, and respect for divine authority. These chapters encourage applying Christlike poise in resolving conflicts.",
+      "source": "Come Follow Me manual"
+    },
+    {
+      "note": "David's inquiry of the Lord before battles (2 Samuel 5:19, 23) models seeking divine guidance. The manual emphasizes prayer as a means to receive personalized direction.",
+      "source": "Come Follow Me manual"
+    },
+    {
+      "note": "The covenant promise to David (2 Samuel 7:16–17) foreshadows Jesus Christ, the eternal King and descendant of David, whose reign will never end.",
+      "source": "Come Follow Me manual"
+    }
+  ],
+  "id": "2026-week-25",
+  "dateLabel": "June 15–21",
+  "reference": "1 Samuel 17–18; 24–26; 2 Samuel 5–7",
+  "lessonTitle": "The Battle Is The Lord’S",
+  "manualUrl": "https://www.churchofjesuschrist.org/study/manual/come-follow-me-for-home-and-church-old-testament-2026/25?lang=eng",
+  "provenanceNote": "Details come from this week’s reading, its footnotes, and the Come Follow Me manual; general background is marked \"general.\" Review before publishing."
+}

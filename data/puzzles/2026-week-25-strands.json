@@ -1,0 +1,157 @@
+{
+  "id": "2026-week-25-strands",
+  "title": "David and Goliath Strands",
+  "type": "strands",
+  "opensAt": "2026-06-15T04:00:00Z",
+  "closesAt": "2026-06-22T04:00:00Z",
+  "theme": "David's rise — the giant, the king he spared, the throne",
+  "clue": "David refused the king's armor and met the Philistine with a sling. The spangram is the giant he struck down.",
+  "instructions": "Find every theme word by linking neighboring letters. One word is the spangram and stretches across the whole board.",
+  "cols": 6,
+  "rows": 8,
+  "grid": [
+    "H",
+    "T",
+    "E",
+    "L",
+    "T",
+    "E",
+    "R",
+    "D",
+    "A",
+    "H",
+    "M",
+    "D",
+    "O",
+    "N",
+    "E",
+    "V",
+    "I",
+    "G",
+    "H",
+    "T",
+    "A",
+    "I",
+    "O",
+    "S",
+    "N",
+    "O",
+    "T",
+    "S",
+    "L",
+    "H",
+    "E",
+    "G",
+    "L",
+    "E",
+    "I",
+    "K",
+    "U",
+    "A",
+    "N",
+    "D",
+    "S",
+    "I",
+    "L",
+    "S",
+    "I",
+    "L",
+    "N",
+    "G"
+  ],
+  "spangram": {
+    "word": "GOLIATH",
+    "cells": [
+      17,
+      22,
+      28,
+      21,
+      20,
+      19,
+      18
+    ]
+  },
+  "themeWords": [
+    {
+      "word": "SHIELD",
+      "cells": [
+        23,
+        29,
+        34,
+        33,
+        32,
+        39
+      ]
+    },
+    {
+      "word": "HELMET",
+      "cells": [
+        9,
+        2,
+        3,
+        10,
+        5,
+        4
+      ]
+    },
+    {
+      "word": "THRONE",
+      "cells": [
+        1,
+        0,
+        6,
+        12,
+        13,
+        14
+      ]
+    },
+    {
+      "word": "DAVID",
+      "cells": [
+        7,
+        8,
+        15,
+        16,
+        11
+      ]
+    },
+    {
+      "word": "SLING",
+      "cells": [
+        40,
+        45,
+        44,
+        38,
+        31
+      ]
+    },
+    {
+      "word": "STONE",
+      "cells": [
+        27,
+        26,
+        25,
+        24,
+        30
+      ]
+    },
+    {
+      "word": "SAUL",
+      "cells": [
+        43,
+        37,
+        36,
+        42
+      ]
+    },
+    {
+      "word": "KING",
+      "cells": [
+        35,
+        41,
+        46,
+        47
+      ]
+    }
+  ]
+}

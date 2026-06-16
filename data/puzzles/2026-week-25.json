@@ -1,0 +1,30 @@
+{
+  "id": "2026-week-25",
+  "title": "The Battle Is the Lord's Connections",
+  "type": "connections",
+  "opensAt": "2026-06-15T04:00:00Z",
+  "closesAt": "2026-06-22T04:00:00Z",
+  "instructions": "Find four groups of four. Everything comes from this week's reading: 1 Samuel 17–18; 24–26; 2 Samuel 5–7.",
+  "categories": [
+    {
+      "id": "people",
+      "title": "People in the reading",
+      "items": ["David", "Jonathan", "Abigail", "Nabal"]
+    },
+    {
+      "id": "places",
+      "title": "Towns and places",
+      "items": ["Elah", "Hebron", "Jerusalem", "Carmel"]
+    },
+    {
+      "id": "davids-gear",
+      "title": "What David took to face Goliath (1 Sam. 17:40)",
+      "items": ["Staff", "Stones", "Sling", "Scrip"]
+    },
+    {
+      "id": "two-samuel",
+      "title": "From 2 Samuel 5–7 (David made king)",
+      "items": ["Zion", "Ark", "Throne", "House"]
+    }
+  ]
+}

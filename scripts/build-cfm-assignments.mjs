@@ -158,10 +158,27 @@ function normalizeWhitespace(value) {
   return String(value).replace(/\u00a0/g, " ").replace(/\s+/g, " ").trim();
 }
 
+// Title-case that matches the published lesson titles: capitalize the first
+// letter of each word but NOT a letter after an apostrophe (so "lord's" stays
+// "Lord's", not "Lord'S"), and keep small words (articles/prepositions/short
+// conjunctions) lowercase unless they're the first or last word.
 function toTitleCase(value) {
-  return normalizeWhitespace(value)
-    .toLowerCase()
-    .replace(/\b[a-z]/g, (letter) => letter.toUpperCase());
+  const small = new Set([
+    "a", "an", "and", "as", "at", "but", "by", "for", "from", "in",
+    "nor", "of", "on", "or", "the", "to", "with"
+  ]);
+  const tokens = normalizeWhitespace(value).toLowerCase().split(" ");
+  const last = tokens.length - 1;
+  return tokens
+    .map((word, index) => {
+      const bare = word.replace(/[^a-z']/g, "");
+      if (index !== 0 && index !== last && small.has(bare)) return word;
+      // Capitalize the first letter of the word, skipping any leading quote or
+      // punctuation. A letter after an apostrophe (the possessive "s") is not
+      // the first letter, so it stays lowercase: "lord's" -> "Lord's".
+      return word.replace(/[a-z]/, (letter) => letter.toUpperCase());
+    })
+    .join(" ");
 }
 
 function trimOuterQuotes(value) {

@@ -259,7 +259,22 @@ async function buildSeasonPreview(weekly) {
     .filter((row) => row.played)
     .map((row) => ({ displayName: row.displayName, total: row.total }));
   season.standings = buildSeasonStandings(season.weeks);
+  // The most recently finalized week. The app shows this week's board (not the
+  // currently-active puzzle's) so the Leaderboard keeps showing last week +
+  // season until the new week is itself finalized.
+  season.latest = latestWeekId(Object.keys(season.weeks));
   return season;
+}
+
+// Sortable key for a "YYYY-week-NN" id (year then week number), so the latest
+// finalized week is picked correctly across single/double digits and year rollover.
+function weekSortKey(id) {
+  const m = /(\d{4})-week-(\d+)/.exec(String(id));
+  return m ? Number(m[1]) * 100 + Number(m[2]) : -1;
+}
+
+function latestWeekId(weekIds) {
+  return weekIds.slice().sort((a, b) => weekSortKey(b) - weekSortKey(a))[0] || null;
 }
 
 async function loadPuzzleData(puzzleId) {

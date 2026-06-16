@@ -19,14 +19,19 @@ async function init() {
   const connectionsId = current.puzzleId;
   const strandsId = current.strandsPuzzleId;
 
-  const [fallbackPlayers, connectionsPuzzle, strandsPuzzle, context, season, weekly] = await Promise.all([
+  const [fallbackPlayers, connectionsPuzzle, strandsPuzzle, context, season] = await Promise.all([
     loadJson("data/players.json"),
     connectionsId ? loadJson(`data/puzzles/${connectionsId}.json`) : Promise.resolve(null),
     strandsId ? loadOptionalJson(`data/puzzles/${strandsId}.json`, null) : Promise.resolve(null),
     current.contextId ? loadOptionalJson(`data/context/${current.contextId}.json`, null) : Promise.resolve(null),
-    loadOptionalJson("data/leaderboards/season.json", { weeks: {}, standings: [] }),
-    loadOptionalJson(`data/leaderboards/${connectionsId}.json`, { puzzleId: connectionsId, standings: [] })
+    loadOptionalJson("data/leaderboards/season.json", { weeks: {}, standings: [] })
   ]);
+
+  // Show the most recently finalized week's board (from season.json), not the
+  // active puzzle's — so the Leaderboard keeps showing last week + the season
+  // until the current week is itself finalized.
+  const weeklyId = season.latest || connectionsId;
+  const weekly = await loadOptionalJson(`data/leaderboards/${weeklyId}.json`, { puzzleId: weeklyId, standings: [] });
 
   const players = await loadPlayers(fallbackPlayers.players || []);
 

@@ -181,6 +181,9 @@ function buildWeekly(weekId, connBest, strandsBest, roster, adminIds) {
         formattedTime: completedCount ? formatTime(totalTime) : null
       };
     })
+    // Only players who actually played (attempted a game) appear on the board —
+    // 🪿 no-shows are dropped, same as the season standings.
+    .filter((row) => row.played)
     .sort((a, b) => {
       if (b.total !== a.total) return b.total - a.total;
       if (b.completedCount !== a.completedCount) return b.completedCount - a.completedCount;

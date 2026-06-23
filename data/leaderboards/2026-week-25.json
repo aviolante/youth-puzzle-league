@@ -1,0 +1,37 @@
+{
+  "puzzleId": "2026-week-25",
+  "finalizedAt": "2026-06-23T15:33:19.290Z",
+  "scoring": {
+    "rawScore": "finished game: max(200, 1000 - elapsedSeconds*1 - mistakes*25 - hintsUsed*50) (capped at 1000); attempted but unfinished: 100",
+    "weekTotal": "Connections score + Strands score"
+  },
+  "standings": [
+    {
+      "rank": 1,
+      "displayName": "Devin G.",
+      "connectionsScore": 961,
+      "strandsScore": 887,
+      "total": 1848,
+      "played": true,
+      "formattedTime": "2:08"
+    },
+    {
+      "rank": 2,
+      "displayName": "Pete",
+      "connectionsScore": 671,
+      "strandsScore": 918,
+      "total": 1589,
+      "played": true,
+      "formattedTime": "4:21"
+    },
+    {
+      "rank": 3,
+      "displayName": "Charles G.",
+      "connectionsScore": 100,
+      "strandsScore": null,
+      "total": 100,
+      "played": true,
+      "formattedTime": null
+    }
+  ]
+}

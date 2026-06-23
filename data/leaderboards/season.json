@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-16T14:55:20.651Z",
+  "updatedAt": "2026-06-23T15:33:19.291Z",
   "weeks": {
     "2026-week-23": [
       {
@@ -60,22 +60,36 @@
         "displayName": "Jonathan M.",
         "total": 875
       }
+    ],
+    "2026-week-25": [
+      {
+        "displayName": "Devin G.",
+        "total": 1848
+      },
+      {
+        "displayName": "Pete",
+        "total": 1589
+      },
+      {
+        "displayName": "Charles G.",
+        "total": 100
+      }
     ]
   },
   "standings": [
     {
       "rank": 1,
-      "displayName": "Pete",
-      "totalScore": 3079,
-      "weeksPlayed": 2,
-      "averageScore": 1540
+      "displayName": "Devin G.",
+      "totalScore": 4695,
+      "weeksPlayed": 3,
+      "averageScore": 1565
     },
     {
       "rank": 2,
-      "displayName": "Devin G.",
-      "totalScore": 2847,
-      "weeksPlayed": 2,
-      "averageScore": 1424
+      "displayName": "Pete",
+      "totalScore": 4668,
+      "weeksPlayed": 3,
+      "averageScore": 1556
     },
     {
       "rank": 3,
@@ -100,39 +114,39 @@
     },
     {
       "rank": 6,
+      "displayName": "Charles G.",
+      "totalScore": 200,
+      "weeksPlayed": 2,
+      "averageScore": 100
+    },
+    {
+      "rank": 7,
       "displayName": "Houston H.",
       "totalScore": 200,
       "weeksPlayed": 1,
       "averageScore": 200
     },
     {
-      "rank": 7,
+      "rank": 8,
       "displayName": "Levi P.",
       "totalScore": 200,
       "weeksPlayed": 1,
       "averageScore": 200
     },
     {
-      "rank": 8,
+      "rank": 9,
       "displayName": "Noah V.",
       "totalScore": 200,
       "weeksPlayed": 1,
       "averageScore": 200
     },
     {
-      "rank": 9,
+      "rank": 10,
       "displayName": "Thomas G.",
       "totalScore": 200,
       "weeksPlayed": 1,
       "averageScore": 200
-    },
-    {
-      "rank": 10,
-      "displayName": "Charles G.",
-      "totalScore": 100,
-      "weeksPlayed": 1,
-      "averageScore": 100
     }
   ],
-  "latest": "2026-week-24"
+  "latest": "2026-week-25"
 }

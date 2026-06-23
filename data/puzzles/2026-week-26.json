@@ -1,0 +1,30 @@
+{
+  "id": "2026-week-26",
+  "title": "Hear Thou in Heaven Their Prayer Connections",
+  "type": "connections",
+  "opensAt": "2026-06-22T04:00:00Z",
+  "closesAt": "2026-06-29T04:00:00Z",
+  "instructions": "Find four groups of four. Everything comes from this week's reading: 2 Samuel 11–12; 1 Kings 3; 6–9; 11.",
+  "categories": [
+    {
+      "id": "people",
+      "title": "People in the reading",
+      "items": ["Bathsheba", "Uriah", "Nathan", "Jeroboam"]
+    },
+    {
+      "id": "places",
+      "title": "Towns and places",
+      "items": ["Gibeon", "Tyre", "Rabbah", "Ophir"]
+    },
+    {
+      "id": "temple-materials",
+      "title": "What Solomon built the temple with",
+      "items": ["Cedar", "Gold", "Brass", "Stone"]
+    },
+    {
+      "id": "false-gods",
+      "title": "Gods Solomon's foreign wives turned him to (1 Kings 11)",
+      "items": ["Ashtoreth", "Chemosh", "Milcom", "Molech"]
+    }
+  ]
+}

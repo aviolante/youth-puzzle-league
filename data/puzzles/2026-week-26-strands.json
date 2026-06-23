@@ -1,0 +1,152 @@
+{
+  "id": "2026-week-26-strands",
+  "title": "Solomon's Temple Strands",
+  "type": "strands",
+  "opensAt": "2026-06-22T04:00:00Z",
+  "closesAt": "2026-06-29T04:00:00Z",
+  "theme": "Solomon — wisdom, the temple, and prayer",
+  "clue": "He asked God for an understanding heart, built the temple, and prayed the Lord would hear. The spangram names this king.",
+  "instructions": "Find every theme word by linking neighboring letters. One word is the spangram and stretches across the whole board.",
+  "cols": 6,
+  "rows": 8,
+  "grid": [
+    "A",
+    "O",
+    "A",
+    "R",
+    "P",
+    "T",
+    "C",
+    "R",
+    "Y",
+    "E",
+    "R",
+    "H",
+    "N",
+    "L",
+    "B",
+    "U",
+    "C",
+    "R",
+    "O",
+    "E",
+    "R",
+    "H",
+    "N",
+    "O",
+    "E",
+    "M",
+    "E",
+    "L",
+    "E",
+    "S",
+    "D",
+    "C",
+    "O",
+    "I",
+    "O",
+    "E",
+    "A",
+    "M",
+    "S",
+    "W",
+    "T",
+    "M",
+    "R",
+    "O",
+    "D",
+    "E",
+    "L",
+    "P"
+  ],
+  "spangram": {
+    "word": "SOLOMON",
+    "cells": [
+      29,
+      34,
+      27,
+      32,
+      25,
+      18,
+      12
+    ]
+  },
+  "themeWords": [
+    {
+      "word": "TEMPLE",
+      "cells": [
+        40,
+        35,
+        41,
+        47,
+        46,
+        45
+      ]
+    },
+    {
+      "word": "PRAYER",
+      "cells": [
+        4,
+        3,
+        2,
+        8,
+        9,
+        10
+      ]
+    },
+    {
+      "word": "WISDOM",
+      "cells": [
+        39,
+        33,
+        38,
+        44,
+        43,
+        37
+      ]
+    },
+    {
+      "word": "ORACLE",
+      "cells": [
+        1,
+        7,
+        0,
+        6,
+        13,
+        19
+      ]
+    },
+    {
+      "word": "CHERUB",
+      "cells": [
+        16,
+        21,
+        26,
+        20,
+        15,
+        14
+      ]
+    },
+    {
+      "word": "THRONE",
+      "cells": [
+        5,
+        11,
+        17,
+        23,
+        22,
+        28
+      ]
+    },
+    {
+      "word": "CEDAR",
+      "cells": [
+        31,
+        24,
+        30,
+        36,
+        42
+      ]
+    }
+  ]
+}

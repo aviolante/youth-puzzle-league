@@ -1,0 +1,30 @@
+{
+  "id": "2026-week-28",
+  "title": "There Is a Prophet in Israel Connections",
+  "type": "connections",
+  "opensAt": "2026-07-06T04:00:00Z",
+  "closesAt": "2026-07-13T04:00:00Z",
+  "instructions": "Find four groups of four. Everything comes from this week's reading: 2 Kings 2–7.",
+  "categories": [
+    {
+      "id": "people",
+      "title": "People in the reading",
+      "items": ["Elijah", "Elisha", "Gehazi", "Naaman"]
+    },
+    {
+      "id": "kings",
+      "title": "Kings in the reading",
+      "items": ["Jehoram", "Jehoshaphat", "Mesha", "Ben-hadad"]
+    },
+    {
+      "id": "places",
+      "title": "Towns and places",
+      "items": ["Jordan", "Jericho", "Samaria", "Dothan"]
+    },
+    {
+      "id": "elijah-departure",
+      "title": "From Elijah's departure (2 Kings 2)",
+      "items": ["Whirlwind", "Chariot", "Horses", "Mantle"]
+    }
+  ]
+}

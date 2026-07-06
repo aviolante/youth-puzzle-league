@@ -1,0 +1,152 @@
+{
+  "id": "2026-week-28-strands",
+  "title": "There Is a Prophet in Israel Strands",
+  "type": "strands",
+  "opensAt": "2026-07-06T04:00:00Z",
+  "closesAt": "2026-07-13T04:00:00Z",
+  "theme": "2 Kings 2–7 — Elijah's mantle, Elisha's miracles",
+  "clue": "Elijah went up in a whirlwind, and a double portion of his spirit fell on his successor. The spangram names that prophet.",
+  "instructions": "Find every theme word by linking neighboring letters. One word is the spangram and stretches across the whole board.",
+  "cols": 6,
+  "rows": 8,
+  "grid": [
+    "W",
+    "D",
+    "O",
+    "W",
+    "H",
+    "A",
+    "I",
+    "A",
+    "C",
+    "L",
+    "J",
+    "M",
+    "R",
+    "H",
+    "E",
+    "I",
+    "A",
+    "N",
+    "E",
+    "I",
+    "O",
+    "T",
+    "T",
+    "L",
+    "J",
+    "L",
+    "I",
+    "S",
+    "H",
+    "E",
+    "O",
+    "R",
+    "A",
+    "N",
+    "D",
+    "A",
+    "G",
+    "E",
+    "D",
+    "I",
+    "A",
+    "E",
+    "H",
+    "A",
+    "Z",
+    "E",
+    "H",
+    "L"
+  ],
+  "spangram": {
+    "word": "ELISHA",
+    "cells": [
+      18,
+      25,
+      26,
+      27,
+      28,
+      35
+    ]
+  },
+  "themeWords": [
+    {
+      "word": "CHARIOT",
+      "cells": [
+        8,
+        13,
+        7,
+        12,
+        19,
+        20,
+        21
+      ]
+    },
+    {
+      "word": "ELIJAH",
+      "cells": [
+        14,
+        9,
+        15,
+        10,
+        5,
+        4
+      ]
+    },
+    {
+      "word": "MANTLE",
+      "cells": [
+        11,
+        16,
+        17,
+        22,
+        23,
+        29
+      ]
+    },
+    {
+      "word": "JORDAN",
+      "cells": [
+        24,
+        30,
+        31,
+        38,
+        32,
+        33
+      ]
+    },
+    {
+      "word": "GEHAZI",
+      "cells": [
+        36,
+        37,
+        42,
+        43,
+        44,
+        39
+      ]
+    },
+    {
+      "word": "HEALED",
+      "cells": [
+        46,
+        45,
+        40,
+        47,
+        41,
+        34
+      ]
+    },
+    {
+      "word": "WIDOW",
+      "cells": [
+        0,
+        6,
+        1,
+        2,
+        3
+      ]
+    }
+  ]
+}

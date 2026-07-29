@@ -1,0 +1,152 @@
+{
+  "id": "2026-week-31-strands",
+  "title": "Restoration Strands",
+  "type": "strands",
+  "opensAt": "2026-07-27T04:00:00Z",
+  "closesAt": "2026-08-03T04:00:00Z",
+  "theme": "Ezra & Nehemiah — the people who rebuilt Jerusalem",
+  "clue": "Two kings, two leaders, and what they raised from rubble. The spangram is Nehemiah's answer to everyone who told him to come down.",
+  "instructions": "Find every theme word by linking neighboring letters. One word is the spangram and stretches across the whole board.",
+  "cols": 6,
+  "rows": 8,
+  "grid": [
+    "E",
+    "M",
+    "P",
+    "R",
+    "I",
+    "B",
+    "T",
+    "A",
+    "T",
+    "L",
+    "C",
+    "E",
+    "E",
+    "R",
+    "W",
+    "E",
+    "S",
+    "K",
+    "A",
+    "W",
+    "G",
+    "O",
+    "R",
+    "H",
+    "L",
+    "D",
+    "A",
+    "C",
+    "Y",
+    "A",
+    "L",
+    "R",
+    "U",
+    "R",
+    "I",
+    "A",
+    "I",
+    "U",
+    "E",
+    "S",
+    "M",
+    "R",
+    "S",
+    "N",
+    "H",
+    "E",
+    "E",
+    "Z"
+  ],
+  "spangram": {
+    "word": "GREATWORK",
+    "cells": [
+      20,
+      13,
+      12,
+      7,
+      8,
+      14,
+      21,
+      22,
+      17
+    ]
+  },
+  "themeWords": [
+    {
+      "word": "NEHEMIAH",
+      "cells": [
+        43,
+        38,
+        44,
+        45,
+        40,
+        34,
+        29,
+        23
+      ]
+    },
+    {
+      "word": "DARIUS",
+      "cells": [
+        25,
+        26,
+        31,
+        36,
+        37,
+        42
+      ]
+    },
+    {
+      "word": "TEMPLE",
+      "cells": [
+        6,
+        0,
+        1,
+        2,
+        9,
+        15
+      ]
+    },
+    {
+      "word": "SCRIBE",
+      "cells": [
+        16,
+        10,
+        3,
+        4,
+        5,
+        11
+      ]
+    },
+    {
+      "word": "CYRUS",
+      "cells": [
+        27,
+        28,
+        33,
+        32,
+        39
+      ]
+    },
+    {
+      "word": "EZRA",
+      "cells": [
+        46,
+        47,
+        41,
+        35
+      ]
+    },
+    {
+      "word": "WALL",
+      "cells": [
+        19,
+        18,
+        24,
+        30
+      ]
+    }
+  ]
+}

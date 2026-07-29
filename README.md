@@ -41,15 +41,24 @@ window.PQ_CONFIG = {
 
 Do not put player PINs or the admin key in this repo.
 
-After `googleScriptUrl` is set, the site loads player names from the Google Sheet. `data/players.json` is only the local fallback roster.
+### Self-service sign-ups
+
+Players sign in by typing their own name and PIN — the roster is never served
+publicly. To let people add themselves instead of you adding every row by hand,
+put a shared join code in the `Config` tab (`joinCode`) and give it to the group.
+A blank `joinCode` means sign-ups are closed. Changing it takes effect
+immediately; no redeploy needed.
+
+New players get an opaque `playerId` and land `active`, `admin = FALSE`. Display
+names must be unique — season totals key on them — so registration rejects a
+name that is already taken.
 
 ## Weekly Puzzle Workflow
 
 1. Create a puzzle file in `data/puzzles`, for example `data/puzzles/2026-week-23.json`.
 2. Update `data/current.json` to point to the new puzzle id.
-3. Update `data/players.json` if the dropdown roster changed.
-4. Commit and push to GitHub Pages.
-5. After the deadline, finalize scores:
+3. Commit and push to GitHub Pages.
+4. After the deadline, finalize scores:
 
 ```bash
 PQ_GOOGLE_SCRIPT_URL="https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec" \

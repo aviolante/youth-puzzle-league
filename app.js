@@ -19,8 +19,7 @@ async function init() {
   const connectionsId = current.puzzleId;
   const strandsId = current.strandsPuzzleId;
 
-  const [fallbackPlayers, connectionsPuzzle, strandsPuzzle, context, season] = await Promise.all([
-    loadJson("data/players.json"),
+  const [connectionsPuzzle, strandsPuzzle, context, season] = await Promise.all([
     connectionsId ? loadJson(`data/puzzles/${connectionsId}.json`) : Promise.resolve(null),
     strandsId ? loadOptionalJson(`data/puzzles/${strandsId}.json`, null) : Promise.resolve(null),
     current.contextId ? loadOptionalJson(`data/context/${current.contextId}.json`, null) : Promise.resolve(null),
@@ -33,12 +32,10 @@ async function init() {
   const weeklyId = season.latest || connectionsId;
   const weekly = await loadOptionalJson(`data/leaderboards/${weeklyId}.json`, { puzzleId: weeklyId, standings: [] });
 
-  const players = await loadPlayers(fallbackPlayers.players || []);
-
   document.querySelector("#app-title").textContent = config.groupName || "Youth Puzzle League";
 
   bindTabs(strandsPuzzle);
-  setupSignIn(players);
+  setupSignIn();
 
   if (connectionsPuzzle) {
     connectionsController = new GameController({
@@ -314,8 +311,14 @@ function showAdminBar() {
 
 // Single shared sign-in for both games. Storing the player + PIN here lets each
 // game start its own official run (and clock) on the player's first move.
-function setupSignIn(players) {
-  const select = document.querySelector("#signin-player");
+//
+// Players type their own name rather than picking from a roster dropdown: the
+// roster is no longer served publicly, and a list of every player stops being
+// usable once the group is bigger than a couple dozen.
+const LAST_NAME_KEY = "pqLastPlayerName";
+
+function setupSignIn() {
+  const nameInput = document.querySelector("#signin-player");
   const pin = document.querySelector("#signin-pin");
   const button = document.querySelector("#signin-button");
   const fields = document.querySelector("#signin-fields");
@@ -324,17 +327,48 @@ function setupSignIn(players) {
   const change = document.querySelector("#signin-change");
   const msg = document.querySelector("#signin-msg");
 
-  const options = players
-    .filter((player) => player.active !== false)
-    .map((player) => `<option value="${escapeHtml(player.id)}">${escapeHtml(player.displayName)}</option>`);
-  select.insertAdjacentHTML("beforeend", options.join(""));
+  const registerPanel = document.querySelector("#signin-register");
+  const newButton = document.querySelector("#signin-new");
+  const registerName = document.querySelector("#register-name");
+  const registerPin = document.querySelector("#register-pin");
+  const registerCode = document.querySelector("#register-code");
+  const registerButton = document.querySelector("#register-button");
+  const registerCancel = document.querySelector("#register-cancel");
+
+  // Returning players shouldn't retype their name every week.
+  nameInput.value = localStorage.getItem(LAST_NAME_KEY) || "";
+
+  function completeSignIn(response, displayName, pinValue) {
+    signIn = {
+      player: {
+        id: response.playerId || "local",
+        displayName: response.displayName || displayName
+      },
+      pin: pinValue
+    };
+    localStorage.setItem(LAST_NAME_KEY, signIn.player.displayName);
+
+    nameLabel.textContent = signIn.player.displayName;
+    fields.hidden = true;
+    registerPanel.hidden = true;
+    active.hidden = false;
+    msg.classList.remove("is-error");
+    msg.textContent = "Your clock starts on your first move in each game.";
+
+    // Reveal admin tools right away for admin players.
+    if (response.isAdmin) showAdminBar();
+  }
+
+  function showError(error) {
+    msg.classList.add("is-error");
+    msg.textContent = error.message;
+  }
 
   button.addEventListener("click", async () => {
-    const player = players.find((candidate) => candidate.id === select.value);
+    const displayName = nameInput.value.trim().replace(/\s+/g, " ");
     const pinValue = pin.value.trim();
-    if (!player || !pinValue) {
-      msg.textContent = "Choose your name and enter your PIN.";
-      msg.classList.add("is-error");
+    if (!displayName || !pinValue) {
+      showError(new Error("Enter your name and PIN."));
       return;
     }
 
@@ -342,22 +376,57 @@ function setupSignIn(players) {
     msg.classList.remove("is-error");
     msg.textContent = "Checking PIN...";
     try {
-      const response = await scoreClient.validate({ playerId: player.id, pin: pinValue });
+      const response = await scoreClient.validate({ displayName, pin: pinValue });
       if (!response.ok) throw new Error(response.error || "That PIN does not match.");
-
-      signIn = { player, pin: pinValue };
-      nameLabel.textContent = player.displayName;
-      fields.hidden = true;
-      active.hidden = false;
-      msg.textContent = "Your clock starts on your first move in each game.";
-
-      // Reveal admin tools right away for admin players.
-      if (response.isAdmin) showAdminBar();
+      completeSignIn(response, displayName, pinValue);
     } catch (error) {
-      msg.classList.add("is-error");
-      msg.textContent = error.message;
+      showError(error);
     } finally {
       button.disabled = false;
+    }
+  });
+
+  newButton.addEventListener("click", () => {
+    registerPanel.hidden = !registerPanel.hidden;
+    if (!registerPanel.hidden) {
+      registerName.value = nameInput.value.trim();
+      registerName.focus();
+      msg.classList.remove("is-error");
+      msg.textContent = "Pick a name others will recognize, then the join code from your leader.";
+    }
+  });
+
+  registerCancel.addEventListener("click", () => {
+    registerPanel.hidden = true;
+  });
+
+  registerButton.addEventListener("click", async () => {
+    const displayName = registerName.value.trim().replace(/\s+/g, " ");
+    const pinValue = registerPin.value.trim();
+    const joinCode = registerCode.value.trim();
+
+    if (!displayName || !pinValue || !joinCode) {
+      showError(new Error("Fill in your name, a 4-digit PIN, and the join code."));
+      return;
+    }
+    if (!/^\d{4}$/.test(pinValue)) {
+      showError(new Error("Your PIN needs to be exactly 4 digits."));
+      return;
+    }
+
+    registerButton.disabled = true;
+    msg.classList.remove("is-error");
+    msg.textContent = "Creating your player...";
+    try {
+      const response = await scoreClient.register({ displayName, pin: pinValue, joinCode });
+      if (!response.ok) throw new Error(response.error || "Could not create that player.");
+      registerPin.value = "";
+      registerCode.value = "";
+      completeSignIn(response, displayName, pinValue);
+    } catch (error) {
+      showError(error);
+    } finally {
+      registerButton.disabled = false;
     }
   });
 
@@ -1054,22 +1123,6 @@ async function loadOptionalJson(path, fallback) {
   }
 }
 
-async function loadPlayers(fallbackPlayers) {
-  if (!config.googleScriptUrl) return fallbackPlayers;
-  try {
-    const response = await callGoogleScript({ action: "players" });
-    if (!response.ok) throw new Error(response.error || "Could not load Google Sheet players.");
-    return (response.players || []).map((player) => ({
-      id: player.playerId,
-      displayName: player.displayName,
-      active: true
-    }));
-  } catch (error) {
-    console.warn(error);
-    return fallbackPlayers;
-  }
-}
-
 function shuffle(items) {
   const copy = [...items];
   for (let index = copy.length - 1; index > 0; index -= 1) {
@@ -1098,6 +1151,16 @@ const scoreClient = {
     // PIN is still verified on the first move and admin appears then.
     if (response && /unknown action/i.test(response.error || "")) {
       return { ok: true, isAdmin: false, deferred: true };
+    }
+    return response;
+  },
+
+  async register(payload) {
+    // Practice mode has no roster to add to, so just let them in.
+    if (!config.googleScriptUrl) return { ok: true, local: true, isAdmin: false, ...payload };
+    const response = await callGoogleScript({ action: "register", ...payload });
+    if (response && !response.ok && /unknown action/i.test(response.error || "")) {
+      throw new Error("Sign-ups aren't live yet — ask your leader to add you.");
     }
     return response;
   },

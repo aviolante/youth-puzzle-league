@@ -49,11 +49,18 @@
         <div class="signin-bar" id="signin-bar">
           <div class="signin-fields" id="signin-fields">
             <label class="eyebrow" for="signin-player">Play as</label>
-            <select id="signin-player" aria-label="Player">
-              <option value="">Choose your name</option>
-            </select>
+            <input id="signin-player" autocomplete="off" placeholder="Your name" aria-label="Your name" />
             <input id="signin-pin" inputmode="numeric" autocomplete="off" placeholder="PIN" aria-label="PIN" />
             <button class="primary-button" id="signin-button" type="button">Sign in</button>
+            <button class="link-button" id="signin-new" type="button">New here?</button>
+          </div>
+          <div class="signin-register" id="signin-register" hidden>
+            <label class="eyebrow" for="register-name">Create a player</label>
+            <input id="register-name" autocomplete="off" placeholder="Display name" aria-label="Display name" maxlength="24" />
+            <input id="register-pin" inputmode="numeric" autocomplete="off" placeholder="4-digit PIN" aria-label="Choose a PIN" maxlength="4" />
+            <input id="register-code" autocomplete="off" placeholder="Join code" aria-label="Join code" />
+            <button class="primary-button" id="register-button" type="button">Create</button>
+            <button class="link-button" id="register-cancel" type="button">Cancel</button>
           </div>
           <div class="signin-active" id="signin-active" hidden>
             Playing as <strong id="signin-name"></strong>

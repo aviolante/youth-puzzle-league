@@ -1,10 +1,12 @@
 const SHEET_NAMES = {
   players: "Players",
   runs: "Runs",
-  submissions: "Submissions"
+  submissions: "Submissions",
+  config: "Config"
 };
 
 const HEADERS = {
+  Config: ["key", "value"],
   Players: ["playerId", "displayName", "pin", "active", "admin"],
   Runs: ["runId", "puzzleId", "playerId", "displayName", "startedAt", "userAgent"],
   Submissions: [
@@ -35,6 +37,12 @@ function setup() {
     // players (and set admin = TRUE for whoever should see the preview tools).
     getSheet_(SHEET_NAMES.players).appendRow(["player1", "Player One", "0000", true, false]);
     getSheet_(SHEET_NAMES.players).appendRow(["player2", "Player Two", "0000", true, false]);
+  }
+
+  if (getRows_(SHEET_NAMES.config).length === 0) {
+    // Blank join code = self-registration is closed. Put a code in the Config
+    // tab to open sign-ups; change it there any time (no redeploy needed).
+    getSheet_(SHEET_NAMES.config).appendRow(["joinCode", ""]);
   }
 
   if (!PropertiesService.getScriptProperties().getProperty("ADMIN_KEY")) {
@@ -80,6 +88,8 @@ function doGet(e) {
       payload = listPlayers_();
     } else if (action === "validate") {
       payload = validateSignIn_(params);
+    } else if (action === "register") {
+      payload = registerPlayer_(params);
     } else if (action === "start") {
       payload = startRun_(params, e);
     } else if (action === "submit") {
@@ -96,31 +106,108 @@ function doGet(e) {
   }
 }
 
+// The roster is deliberately NOT public: players sign in by typing their own
+// name, so nothing here needs a list of everyone playing. Kept as a valid
+// action (rather than removed) so older cached clients get a clean response.
+// The admin-key-gated export still returns the full roster for the finalizer.
 function listPlayers_() {
-  var players = getRows_(SHEET_NAMES.players)
-    .filter(function (row) {
-      return String(row.active).toLowerCase() !== "false";
-    })
-    .map(function (row) {
-      return {
-        playerId: row.playerId,
-        displayName: row.displayName
-      };
-    });
-
-  return { ok: true, players: players };
+  return { ok: true, players: [], rosterIsPrivate: true };
 }
 
 // Verify a player's PIN at sign-in without recording a run. Returns whether
 // the player is an admin so the app can reveal preview tools immediately.
+// Accepts either a typed displayName (current app) or a playerId (older
+// clients that still had the roster dropdown).
 function validateSignIn_(params) {
-  var player = validatePlayer_(params.playerId, params.pin);
+  var player = params.playerId
+    ? validatePlayer_(params.playerId, params.pin)
+    : validatePlayerByName_(params.displayName, params.pin);
+
   return {
     ok: true,
     playerId: player.playerId,
     displayName: player.displayName,
     isAdmin: String(player.admin).toLowerCase() === "true"
   };
+}
+
+// Self-service sign-up, gated by the shared join code in the Config tab. New
+// players get an opaque playerId (never a name-derived one) and land active.
+function registerPlayer_(params) {
+  var displayName = requireParam_(params, "displayName").replace(/\s+/g, " ");
+  var pin = requireParam_(params, "pin");
+  var joinCode = requireParam_(params, "joinCode");
+
+  if (displayName.length < 2 || displayName.length > 24) {
+    throw new Error("Use a name between 2 and 24 characters.");
+  }
+  if (!/^[A-Za-z0-9 .'\-]+$/.test(displayName)) {
+    throw new Error("Names can use letters, numbers, spaces, apostrophes, periods and hyphens.");
+  }
+  if (!/^\d{4}$/.test(pin)) {
+    throw new Error("Choose a 4-digit PIN.");
+  }
+
+  var expected = getConfigValue_("joinCode");
+  if (!expected) {
+    throw new Error("Sign-ups are closed right now. Ask your leader to add you.");
+  }
+  if (normalizeName_(joinCode) !== normalizeName_(expected)) {
+    throw new Error("That join code is not right.");
+  }
+
+  // Lock so two people can't claim the same name in the same moment. Season
+  // totals key on display name, so a duplicate would silently merge scores.
+  var lock = LockService.getScriptLock();
+  lock.waitLock(15000);
+  try {
+    if (findPlayerByName_(displayName)) {
+      throw new Error("That name is taken. Try adding your last initial.");
+    }
+
+    var playerId = "p-" + Utilities.getUuid().slice(0, 8);
+    var sheet = getSheet_(SHEET_NAMES.players);
+    sheet.appendRow([playerId, displayName, "", true, false]);
+
+    // Write the PIN as text so a leading zero (0000, 0123) survives.
+    sheet.getRange(sheet.getLastRow(), 3).setNumberFormat("@").setValue(pin);
+
+    return {
+      ok: true,
+      created: true,
+      playerId: playerId,
+      displayName: displayName,
+      isAdmin: false
+    };
+  } finally {
+    lock.releaseLock();
+  }
+}
+
+function getConfigValue_(key) {
+  var row = findRow_(SHEET_NAMES.config, function (candidate) {
+    return String(candidate.key).trim().toLowerCase() === String(key).trim().toLowerCase();
+  });
+  return row ? String(row.value).trim() : "";
+}
+
+// Names are compared ignoring case, spacing and punctuation, so someone who
+// registered as "Spencer B." can sign in by typing "spencer b". It also stops
+// "Spencer B" and "Spencer B." registering as two players — season totals key
+// on display name, so near-duplicates would split one player's score.
+function normalizeName_(value) {
+  return String(value === undefined || value === null ? "" : value)
+    .toLowerCase()
+    .replace(/[^a-z0-9 ]+/g, "")
+    .trim()
+    .replace(/\s+/g, " ");
+}
+
+function findPlayerByName_(displayName) {
+  var wanted = normalizeName_(displayName);
+  return findRow_(SHEET_NAMES.players, function (row) {
+    return normalizeName_(row.displayName) === wanted;
+  });
 }
 
 function startRun_(params, event) {
@@ -299,15 +386,38 @@ function validatePlayer_(playerId, pin) {
     return row.playerId === playerId;
   });
 
+  return checkPlayerPin_(player, pin);
+}
+
+function validatePlayerByName_(displayName, pin) {
+  displayName = requireParam_({ displayName: displayName }, "displayName");
+  pin = requireParam_({ pin: pin }, "pin");
+
+  return checkPlayerPin_(findPlayerByName_(displayName), pin);
+}
+
+function checkPlayerPin_(player, pin) {
   if (!player || String(player.active).toLowerCase() === "false") {
     throw new Error("Player is not active.");
   }
 
-  if (String(player.pin) !== String(pin)) {
+  if (!pinsMatch_(player.pin, pin)) {
     throw new Error("The PIN does not match that player.");
   }
 
   return player;
+}
+
+// A PIN typed as "0123" comes back from the sheet as the number 123 when the
+// cell was never formatted as text, so compare zero-padded as well.
+function pinsMatch_(stored, given) {
+  var a = String(stored).trim();
+  var b = String(given).trim();
+  if (a === b) return true;
+  if (!/^\d+$/.test(a) || !/^\d+$/.test(b)) return false;
+  while (a.length < 4) a = "0" + a;
+  while (b.length < 4) b = "0" + b;
+  return a === b;
 }
 
 function calculateScore_(elapsedMs, mistakes, hintsUsed) {

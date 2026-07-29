@@ -172,7 +172,6 @@ h2 {
   margin: 0;
 }
 
-.signin-bar select,
 .signin-bar input {
   min-height: 42px;
   min-width: 0;
@@ -183,12 +182,31 @@ h2 {
   padding: 8px 12px;
 }
 
-.signin-bar select {
+.signin-bar input {
+  flex: 1 1 90px;
+}
+
+/* Name fields hold more than a PIN, so give them the wider basis the roster
+   dropdown used to have. */
+#signin-player,
+#register-name {
   flex: 1 1 150px;
 }
 
-.signin-bar input {
-  flex: 1 1 90px;
+/* Sign-up panel drops to its own full-width row under the sign-in fields. */
+.signin-register {
+  flex: 1 1 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  border-top: 1px solid var(--line);
+  padding-top: 12px;
+}
+
+/* An author-set display beats the UA rule for [hidden], so restore it. */
+.signin-register[hidden] {
+  display: none;
 }
 
 .signin-bar .primary-button {

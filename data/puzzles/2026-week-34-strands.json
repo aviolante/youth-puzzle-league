@@ -1,0 +1,147 @@
+{
+  "id": "2026-week-34-strands",
+  "title": "Restoration Strands",
+  "type": "strands",
+  "opensAt": "2026-08-17T04:00:00Z",
+  "closesAt": "2026-08-24T04:00:00Z",
+  "theme": "Psalm 23 and the psalms around it",
+  "clue": "Where he leads you, what he leads you through, and what he is when you get there. The spangram finishes the line everyone knows: The Lord is ___.",
+  "instructions": "Find every theme word by linking neighboring letters. One word is the spangram and stretches across the whole board.",
+  "cols": 6,
+  "rows": 8,
+  "grid": [
+    "L",
+    "L",
+    "I",
+    "T",
+    "S",
+    "G",
+    "R",
+    "S",
+    "E",
+    "R",
+    "U",
+    "E",
+    "T",
+    "E",
+    "H",
+    "F",
+    "P",
+    "H",
+    "A",
+    "S",
+    "V",
+    "E",
+    "D",
+    "E",
+    "W",
+    "Y",
+    "A",
+    "Y",
+    "E",
+    "R",
+    "M",
+    "O",
+    "C",
+    "L",
+    "L",
+    "S",
+    "T",
+    "M",
+    "F",
+    "P",
+    "T",
+    "E",
+    "R",
+    "O",
+    "A",
+    "S",
+    "U",
+    "R"
+  ],
+  "spangram": {
+    "word": "MYSHEPHERD",
+    "cells": [
+      30,
+      25,
+      19,
+      14,
+      21,
+      16,
+      17,
+      23,
+      29,
+      22
+    ]
+  },
+  "themeWords": [
+    {
+      "word": "PASTURES",
+      "cells": [
+        39,
+        44,
+        45,
+        40,
+        46,
+        47,
+        41,
+        35
+      ]
+    },
+    {
+      "word": "COMFORT",
+      "cells": [
+        32,
+        31,
+        37,
+        38,
+        43,
+        42,
+        36
+      ]
+    },
+    {
+      "word": "REFUGE",
+      "cells": [
+        9,
+        8,
+        15,
+        10,
+        5,
+        11
+      ]
+    },
+    {
+      "word": "VALLEY",
+      "cells": [
+        20,
+        26,
+        33,
+        34,
+        28,
+        27
+      ]
+    },
+    {
+      "word": "WATERS",
+      "cells": [
+        24,
+        18,
+        12,
+        13,
+        6,
+        7
+      ]
+    },
+    {
+      "word": "STILL",
+      "cells": [
+        4,
+        3,
+        2,
+        1,
+        0
+      ]
+    }
+  ]
+}

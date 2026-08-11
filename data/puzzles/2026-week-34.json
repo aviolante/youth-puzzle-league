@@ -1,0 +1,30 @@
+{
+  "id": "2026-week-34",
+  "title": "The Lord Is My Shepherd Connections",
+  "type": "connections",
+  "opensAt": "2026-08-17T04:00:00Z",
+  "closesAt": "2026-08-24T04:00:00Z",
+  "instructions": "Find four groups of four. Everything comes from this week's reading: Psalms 1–2; 8; 19–33; 40; 46.",
+  "categories": [
+    {
+      "id": "psalm23",
+      "title": "From Psalm 23",
+      "items": ["Pastures", "Staff", "Cup", "Valley"]
+    },
+    {
+      "id": "psalm22",
+      "title": "From Psalm 22",
+      "items": ["Garments", "Lots", "Dogs", "Bulls"]
+    },
+    {
+      "id": "heavens",
+      "title": "Overhead in Psalms 8 and 19",
+      "items": ["Heavens", "Moon", "Stars", "Sun"]
+    },
+    {
+      "id": "titles",
+      "title": "What the psalmist calls the Lord",
+      "items": ["Shepherd", "Refuge", "Rock", "Shield"]
+    }
+  ]
+}

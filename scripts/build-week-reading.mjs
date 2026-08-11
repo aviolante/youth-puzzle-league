@@ -380,7 +380,21 @@ function cleanPageText(rawText) {
   // entry like "16 c tg Brotherhood" or "1 1 a Judg. 2:16" and run to the page
   // end, so truncate from the first such line.
   const cut = lines.findIndex(isFootnoteLine);
-  const body = cut === -1 ? lines : lines.slice(0, cut);
+  let body;
+  if (cut === -1) {
+    body = lines;
+  } else {
+    body = lines.slice(0, cut);
+    // The footnote block does not always run to the page end. This PDF is
+    // two-column, and where a book finishes partway down a page the extractor
+    // emits that page's footnotes before the text that follows them — so
+    // truncating at the first footnote line drops real scripture (Psalm 1
+    // shares a page with the end of Job). Resume at the next chapter/psalm
+    // heading, which footnote and cross-reference lines never look like.
+    const rest = lines.slice(cut + 1);
+    const resume = rest.findIndex((line) => isSectionHeading(line.trim()));
+    if (resume !== -1) body = body.concat(rest.slice(resume));
+  }
 
   const kept = [];
   for (let line of body) {
@@ -400,6 +414,12 @@ function cleanPageText(rawText) {
     }
   }
   return kept.filter(Boolean).join("\n");
+}
+
+// A standalone "Chapter 12" / "Psalm 23" heading — the marker that a new
+// chapter's body text starts here.
+function isSectionHeading(line) {
+  return /^(?:Chapter|Psalm)\s+\d+$/i.test(line);
 }
 
 function isHeaderLine(line) {

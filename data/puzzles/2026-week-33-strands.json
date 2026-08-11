@@ -1,0 +1,142 @@
+{
+  "id": "2026-week-33-strands",
+  "title": "Restoration Strands",
+  "type": "strands",
+  "opensAt": "2026-08-10T04:00:00Z",
+  "closesAt": "2026-08-17T04:00:00Z",
+  "theme": "Job — what he lost, who came to talk, and what he held on to",
+  "clue": "Two friends, two creatures of the deep and the storm, and the One Job knew was living. The spangram is what Job said even after losing everything.",
+  "instructions": "Find every theme word by linking neighboring letters. One word is the spangram and stretches across the whole board.",
+  "cols": 6,
+  "rows": 8,
+  "grid": [
+    "T",
+    "H",
+    "E",
+    "R",
+    "A",
+    "H",
+    "R",
+    "S",
+    "E",
+    "B",
+    "O",
+    "P",
+    "U",
+    "R",
+    "T",
+    "M",
+    "H",
+    "Z",
+    "E",
+    "D",
+    "E",
+    "I",
+    "O",
+    "T",
+    "E",
+    "Z",
+    "N",
+    "H",
+    "I",
+    "M",
+    "M",
+    "A",
+    "I",
+    "R",
+    "N",
+    "D",
+    "E",
+    "H",
+    "P",
+    "H",
+    "L",
+    "I",
+    "R",
+    "I",
+    "L",
+    "E",
+    "W",
+    "W"
+  ],
+  "spangram": {
+    "word": "TRUSTINHIM",
+    "cells": [
+      0,
+      6,
+      12,
+      7,
+      14,
+      21,
+      26,
+      27,
+      28,
+      29
+    ]
+  },
+  "themeWords": [
+    {
+      "word": "WHIRLWIND",
+      "cells": [
+        46,
+        39,
+        32,
+        33,
+        40,
+        47,
+        41,
+        34,
+        35
+      ]
+    },
+    {
+      "word": "REDEEMER",
+      "cells": [
+        13,
+        20,
+        19,
+        18,
+        24,
+        30,
+        36,
+        42
+      ]
+    },
+    {
+      "word": "BEHEMOTH",
+      "cells": [
+        9,
+        2,
+        1,
+        8,
+        15,
+        22,
+        23,
+        16
+      ]
+    },
+    {
+      "word": "ELIPHAZ",
+      "cells": [
+        45,
+        44,
+        43,
+        38,
+        37,
+        31,
+        25
+      ]
+    },
+    {
+      "word": "ZOPHAR",
+      "cells": [
+        17,
+        10,
+        11,
+        5,
+        4,
+        3
+      ]
+    }
+  ]
+}

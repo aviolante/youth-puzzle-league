@@ -464,7 +464,12 @@ function trimToChapters(text, segment) {
       start = i;
       if (chapter === segment.chapterStart) started = true;
     }
-    if (chapter > segment.chapterEnd) {
+    // Only treat a higher chapter number as the end once we have actually
+    // entered this segment. A segment's first page often carries the tail of
+    // the previous book, whose chapter numbers can exceed chapterEnd (Job 1
+    // shares a page with Esther 10) — breaking there would drop the whole
+    // reading and leave only the previous book's text.
+    if (started && chapter > segment.chapterEnd) {
       end = i;
       break;
     }

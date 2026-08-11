@@ -1,6 +1,6 @@
 {
-  "puzzleId": "2026-week-22",
-  "finalizedAt": "2026-08-11T15:47:14.503Z",
+  "puzzleId": "2026-week-31",
+  "finalizedAt": "2026-08-11T15:48:07.808Z",
   "scoring": {
     "rawScore": "finished game: max(200, 1000 - elapsedSeconds*1 - mistakes*25 - hintsUsed*50) (capped at 1000); attempted but unfinished: 100",
     "weekTotal": "Connections score + Strands score"

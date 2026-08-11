@@ -1,0 +1,28 @@
+{
+  "puzzleId": "2026-week-26",
+  "finalizedAt": "2026-08-11T15:47:28.925Z",
+  "scoring": {
+    "rawScore": "finished game: max(200, 1000 - elapsedSeconds*1 - mistakes*25 - hintsUsed*50) (capped at 1000); attempted but unfinished: 100",
+    "weekTotal": "Connections score + Strands score"
+  },
+  "standings": [
+    {
+      "rank": 1,
+      "displayName": "Devin G.",
+      "connectionsScore": 918,
+      "strandsScore": 776,
+      "total": 1694,
+      "played": true,
+      "formattedTime": "4:42"
+    },
+    {
+      "rank": 2,
+      "displayName": "Pete",
+      "connectionsScore": 435,
+      "strandsScore": 811,
+      "total": 1246,
+      "played": true,
+      "formattedTime": "6:20"
+    }
+  ]
+}

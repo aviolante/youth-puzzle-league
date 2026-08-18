@@ -1,0 +1,19 @@
+{
+  "puzzleId": "2026-week-33",
+  "finalizedAt": "2026-08-18T21:03:55.463Z",
+  "scoring": {
+    "rawScore": "finished game: max(200, 1000 - elapsedSeconds*1 - mistakes*25 - hintsUsed*50) (capped at 1000); attempted but unfinished: 100",
+    "weekTotal": "Connections score + Strands score"
+  },
+  "standings": [
+    {
+      "rank": 1,
+      "displayName": "Devin G.",
+      "connectionsScore": 790,
+      "strandsScore": 283,
+      "total": 1073,
+      "played": true,
+      "formattedTime": "7:08"
+    }
+  ]
+}

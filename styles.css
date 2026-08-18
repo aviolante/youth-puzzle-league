@@ -209,6 +209,13 @@ h2 {
   display: none;
 }
 
+/* Sits on its own row under the sign-up fields. */
+.signin-hint {
+  flex: 1 1 100%;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
 .signin-bar .primary-button {
   margin: 0;
 }

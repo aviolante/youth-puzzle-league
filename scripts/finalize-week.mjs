@@ -156,7 +156,7 @@ function buildWeekly(weekId, connBest, strandsBest, roster, adminIds) {
         const isAdmin = p.admin === true || (adminIds && adminIds.has(id));
         return !extraExcluded.has(id) && !(!includeAdmins && isAdmin);
       })
-      .map((p) => ({ playerId: p.playerId, displayName: p.displayName }));
+      .map((p) => ({ playerId: p.playerId, displayName: publicName(p.displayName) }));
   } else {
     const ids = new Set([...connBest.keys(), ...strandsBest.keys()]);
     players = [...ids].map((id) => ({ playerId: id, displayName: (connBest.get(id) || strandsBest.get(id)).displayName }));
@@ -357,7 +357,7 @@ function normalizeSubmission(row) {
     runId: String(row.runId || ""),
     puzzleId: String(row.puzzleId || ""),
     playerId: String(row.playerId || ""),
-    displayName: String(row.displayName || row.playerId || ""),
+    displayName: publicName(row.displayName || row.playerId || ""),
     startedAt: String(row.startedAt || ""),
     submittedAt: String(row.submittedAt || ""),
     elapsedMs: Number(row.elapsedMs || 0),
@@ -374,8 +374,24 @@ function normalizeRun(row) {
   return {
     puzzleId: String(row.puzzleId || ""),
     playerId: String(row.playerId || ""),
-    displayName: String(row.displayName || row.playerId || "")
+    displayName: publicName(row.displayName || row.playerId || "")
   };
+}
+
+// Published boards are committed to a public repo, so they carry a first name
+// and a last initial only -- never a full surname. Players type their own
+// display name when they self-register, so this is enforced at publish time
+// rather than trusting whatever they entered ("Devin Gilreath" -> "Devin G.").
+// Single-word names ("Pete") are left alone.
+function publicName(value) {
+  const parts = String(value || "")
+    .trim()
+    .replace(/\s+/g, " ")
+    .split(" ")
+    .filter(Boolean);
+  if (parts.length < 2) return parts[0] || "";
+  const initial = parts[parts.length - 1].replace(/[^A-Za-z]/g, "").charAt(0);
+  return initial ? `${parts[0]} ${initial.toUpperCase()}.` : parts[0];
 }
 
 function calculateScore(elapsedMs, mistakes, hintsUsed = 0) {

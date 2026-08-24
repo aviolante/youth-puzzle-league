@@ -1,0 +1,59 @@
+{
+  "summary": "The Psalms in this week's reading express deep personal feelings of sorrow, repentance, and trust in God. They include pleas for forgiveness, declarations of God's power and mercy, and testimonies of His deliverance. Many psalms reflect on the futility of trusting in wealth or worldly power, emphasizing that redemption comes only through God. Others recount Israel's history, including their deliverance from Egypt and their covenant relationship with God. The psalms also look forward to the Messiah and the salvation He will bring.",
+  "summarySource": "scripture reading",
+  "people": [
+    {
+      "name": "David",
+      "note": "A king of Israel and author of many Psalms, including those expressing repentance (Psalm 51) and trust in God (Psalm 62, 71).",
+      "source": "Psalm 51:1; Psalm 62:1; Psalm 71:1"
+    },
+    {
+      "name": "Asaph",
+      "note": "A musician and author of Psalms, including those addressing God's judgment (Psalm 50) and Israel's history (Psalm 78).",
+      "source": "Psalm 50:1; Psalm 78:1"
+    },
+    {
+      "name": "Sons of Korah",
+      "note": "A family of temple musicians credited in the headings of several psalms, including ones on the futility of trusting riches and on the Lord restoring His people (Psalm 49; 85).",
+      "source": "Psalm 49:1; 85:1"
+    }
+  ],
+  "locations": [
+    {
+      "name": "Zion",
+      "note": "The Lord’s holy city and dwelling place; the psalmists praise Him there and look for Him to save it (Psalm 65:1; 69:35).",
+      "source": "Psalm 65:1; 69:35"
+    },
+    {
+      "name": "The wilderness",
+      "note": "A setting for trials and testing, where God's people experienced both divine provision and rebellion.",
+      "source": "Psalm 63:1; Psalm 78:34"
+    }
+  ],
+  "background": "The Psalms were written over centuries by various authors, including David, Asaph, and the Sons of Korah. They served as hymns, prayers, and poetic expressions of faith for ancient Israel. Many reflect the challenges of life, the consequences of sin, and the hope found in God's mercy and covenant. The psalms often use metaphor and symbolism, drawing on Israel's history (e.g., the Exodus) and looking forward to the Messiah. The Come Follow Me manual highlights how these psalms can help modern readers navigate personal struggles and find strength in Christ.",
+  "backgroundSource": "general",
+  "manualHighlights": [
+    {
+      "note": "Redemption comes only through Jesus Christ. Psalm 49 teaches that wealth cannot redeem the soul, but God can (v. 15).",
+      "source": "Come Follow Me manual"
+    },
+    {
+      "note": "Because of the Savior’s mercy, we can be forgiven. Psalm 51 details David's repentance and the need for a 'clean heart' (v. 10).",
+      "source": "Come Follow Me manual"
+    },
+    {
+      "note": "The Lord will help in times of need. Psalms like 63 and 77 encourage remembering God's works and seeking His help in distress.",
+      "source": "Come Follow Me manual"
+    },
+    {
+      "note": "Our testimony of Jesus Christ can help others come unto Him. Psalm 66:16 invites declaring what God has done for our souls.",
+      "source": "Come Follow Me manual"
+    }
+  ],
+  "id": "2026-week-35",
+  "dateLabel": "August 24–30",
+  "reference": "Psalms 49–51; 61–66; 69–72; 77–78; 85–86",
+  "lessonTitle": "I Will Declare What He Hath Done for My Soul",
+  "manualUrl": "https://www.churchofjesuschrist.org/study/manual/come-follow-me-for-home-and-church-old-testament-2026/35?lang=eng",
+  "provenanceNote": "Details come from this week’s reading, its footnotes, and the Come Follow Me manual; general background is marked \"general.\" Review before publishing."
+}

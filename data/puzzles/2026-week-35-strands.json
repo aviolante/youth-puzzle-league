@@ -1,0 +1,152 @@
+{
+  "id": "2026-week-35-strands",
+  "title": "Restoration Strands",
+  "type": "strands",
+  "opensAt": "2026-08-24T04:00:00Z",
+  "closesAt": "2026-08-31T04:00:00Z",
+  "theme": "Psalms of sorrow, repentance, and remembering",
+  "clue": "What they gave him to drink, what David asked to be washed with, and what he asked God to make in him. The spangram is Psalm 51:10.",
+  "instructions": "Find every theme word by linking neighboring letters. One word is the spangram and stretches across the whole board.",
+  "cols": 6,
+  "rows": 8,
+  "grid": [
+    "A",
+    "R",
+    "I",
+    "S",
+    "S",
+    "Y",
+    "G",
+    "N",
+    "Y",
+    "V",
+    "O",
+    "H",
+    "E",
+    "T",
+    "M",
+    "C",
+    "E",
+    "P",
+    "R",
+    "E",
+    "R",
+    "H",
+    "T",
+    "A",
+    "U",
+    "T",
+    "H",
+    "N",
+    "I",
+    "R",
+    "L",
+    "E",
+    "A",
+    "A",
+    "L",
+    "M",
+    "C",
+    "P",
+    "H",
+    "H",
+    "R",
+    "L",
+    "R",
+    "A",
+    "P",
+    "E",
+    "A",
+    "G"
+  ],
+  "spangram": {
+    "word": "CLEANHEART",
+    "cells": [
+      36,
+      30,
+      31,
+      32,
+      27,
+      21,
+      16,
+      23,
+      29,
+      22
+    ]
+  },
+  "themeWords": [
+    {
+      "word": "VINEGAR",
+      "cells": [
+        9,
+        2,
+        7,
+        12,
+        6,
+        0,
+        1
+      ]
+    },
+    {
+      "word": "EPHRAIM",
+      "cells": [
+        45,
+        44,
+        39,
+        40,
+        33,
+        28,
+        35
+      ]
+    },
+    {
+      "word": "HYSSOP",
+      "cells": [
+        11,
+        5,
+        4,
+        3,
+        10,
+        17
+      ]
+    },
+    {
+      "word": "MERCY",
+      "cells": [
+        14,
+        19,
+        20,
+        15,
+        8
+      ]
+    },
+    {
+      "word": "TRUTH",
+      "cells": [
+        13,
+        18,
+        24,
+        25,
+        26
+      ]
+    },
+    {
+      "word": "GALL",
+      "cells": [
+        47,
+        46,
+        41,
+        34
+      ]
+    },
+    {
+      "word": "HARP",
+      "cells": [
+        38,
+        43,
+        42,
+        37
+      ]
+    }
+  ]
+}

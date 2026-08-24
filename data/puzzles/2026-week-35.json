@@ -1,0 +1,30 @@
+{
+  "id": "2026-week-35",
+  "title": "I Will Declare What He Hath Done for My Soul Connections",
+  "type": "connections",
+  "opensAt": "2026-08-24T04:00:00Z",
+  "closesAt": "2026-08-31T04:00:00Z",
+  "instructions": "Find four groups of four. Everything comes from this week's reading: Psalms 49–51; 61–66; 69–72; 77–78; 85–86.",
+  "categories": [
+    {
+      "id": "psalm51",
+      "title": "From Psalm 51, David's plea",
+      "items": ["Hyssop", "Snow", "Mercy", "Truth"]
+    },
+    {
+      "id": "psalm69",
+      "title": "From Psalm 69, the psalm of suffering",
+      "items": ["Gall", "Vinegar", "Mire", "Reproach"]
+    },
+    {
+      "id": "psalm78",
+      "title": "From Psalm 78, retelling Israel's story",
+      "items": ["Manna", "Zoan", "Ephraim", "Shiloh"]
+    },
+    {
+      "id": "music",
+      "title": "Words from the psalm headings and music",
+      "items": ["Selah", "Maschil", "Harp", "Psaltery"]
+    }
+  ]
+}

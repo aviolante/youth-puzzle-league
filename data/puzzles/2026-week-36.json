@@ -1,0 +1,30 @@
+{
+  "id": "2026-week-36",
+  "title": "Let Every Thing That Hath Breath Praise the Lord Connections",
+  "type": "connections",
+  "opensAt": "2026-08-31T04:00:00Z",
+  "closesAt": "2026-09-07T04:00:00Z",
+  "instructions": "Find four groups of four. Everything comes from this week's reading: Psalms 102–103; 110; 116–119; 127–128; 135–139.",
+  "categories": [
+    {
+      "id": "psalm119",
+      "title": "Hebrew letters that head the sections of Psalm 119",
+      "items": ["Aleph", "Beth", "Gimel", "Daleth"]
+    },
+    {
+      "id": "psalm127",
+      "title": "From Psalms 127–128, about a home",
+      "items": ["Arrows", "Quiver", "Watchman", "Vine"]
+    },
+    {
+      "id": "psalm135",
+      "title": "Kings and nations the Lord overthrew in Psalm 135",
+      "items": ["Sihon", "Og", "Amorites", "Canaan"]
+    },
+    {
+      "id": "psalm139",
+      "title": "From Psalm 139, where you cannot hide from God",
+      "items": ["Wings", "Darkness", "Book", "Heaven"]
+    }
+  ]
+}

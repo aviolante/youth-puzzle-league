@@ -1,0 +1,142 @@
+{
+  "id": "2026-week-36-strands",
+  "title": "Restoration Strands",
+  "type": "strands",
+  "opensAt": "2026-08-31T04:00:00Z",
+  "closesAt": "2026-09-07T04:00:00Z",
+  "theme": "Psalms of praise, a priest, and a household",
+  "clue": "A priest whose order points to Christ, what fills a full quiver, and what God's word is unto your feet. The spangram is what everything that hath breath should do.",
+  "instructions": "Find every theme word by linking neighboring letters. One word is the spangram and stretches across the whole board.",
+  "cols": 6,
+  "rows": 8,
+  "grid": [
+    "P",
+    "S",
+    "E",
+    "D",
+    "R",
+    "L",
+    "S",
+    "R",
+    "I",
+    "T",
+    "O",
+    "E",
+    "W",
+    "A",
+    "M",
+    "A",
+    "H",
+    "W",
+    "Z",
+    "O",
+    "R",
+    "H",
+    "N",
+    "A",
+    "I",
+    "E",
+    "D",
+    "R",
+    "C",
+    "T",
+    "H",
+    "E",
+    "R",
+    "A",
+    "V",
+    "P",
+    "M",
+    "C",
+    "K",
+    "E",
+    "I",
+    "M",
+    "E",
+    "L",
+    "Q",
+    "U",
+    "L",
+    "A"
+  ],
+  "spangram": {
+    "word": "PRAISETHELORD",
+    "cells": [
+      0,
+      7,
+      13,
+      8,
+      1,
+      2,
+      9,
+      16,
+      11,
+      5,
+      10,
+      4,
+      3
+    ]
+  },
+  "themeWords": [
+    {
+      "word": "MELCHIZEDEK",
+      "cells": [
+        36,
+        42,
+        43,
+        37,
+        30,
+        24,
+        18,
+        25,
+        26,
+        31,
+        38
+      ]
+    },
+    {
+      "word": "WATCHMAN",
+      "cells": [
+        17,
+        23,
+        29,
+        28,
+        21,
+        14,
+        15,
+        22
+      ]
+    },
+    {
+      "word": "QUIVER",
+      "cells": [
+        44,
+        45,
+        40,
+        34,
+        39,
+        32
+      ]
+    },
+    {
+      "word": "ARROWS",
+      "cells": [
+        33,
+        27,
+        20,
+        19,
+        12,
+        6
+      ]
+    },
+    {
+      "word": "LAMP",
+      "cells": [
+        46,
+        47,
+        41,
+        35
+      ]
+    }
+  ]
+}
